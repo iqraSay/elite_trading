@@ -37,7 +37,7 @@ const WomensClothing = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 m-4 ">
 
         {products.map((product) => (
-            <div key={product.id} className="p-2">
+            <div key={product.id} className="p-2 slide-in">
               <div className="p-4 rounded shadow-lg shadow-neutral-500 bg-gradient-to-t from-yellow-100 flex flex-col items-center">
                 <div className="relative w-full h-56 ">
                   <img
