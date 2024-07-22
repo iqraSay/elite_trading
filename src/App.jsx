@@ -6,6 +6,9 @@ import MensClothing from './pages/MensClothing';
 import WomensClothing from './pages/WomensClothing';
 import Shoes from './pages/Shoes';
 import Acc from './pages/Accessories';
+import LoginPage from './pages/LoginPage';
+import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -16,6 +19,12 @@ function App() {
       <Route path='/womensclothing' element ={<WomensClothing/>} />
       <Route path='/shoes' element ={<Shoes/>} />
       <Route path='/accessories' element ={<Acc/>} />
+      <Route path='/login' element ={<LoginPage/>} />
+      <Route path='/signup' element ={<Signup/>} />
+      <Route path='/forgotpassword' element ={<ForgotPassword/>} />
+      
+
+
       </Routes>
     </div>
   );

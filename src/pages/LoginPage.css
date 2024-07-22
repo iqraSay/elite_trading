@@ -1,0 +1,67 @@
+/* Fade-in effect for the form */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Focus effect for input fields */
+  input.focus {
+    border-color: #ffd500;
+    box-shadow: 0 0 5px rgba(255, 213, 0, 0.5);
+  }
+  
+  /* Ripple effect for the login button */
+  .ripple-effect {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .ripple-effect::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 230, 0, 0.499);
+    width: 300%;
+    height: 300%;
+    top: -150%;
+    left: -150%;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  
+  .ripple-effect:hover::after {
+    opacity: 0.3;
+  }
+  
+  .ripple-effect:active::after {
+    transform: scale(1);
+    opacity: 0.4;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  
+  /* Button hover and click effect */
+  button {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  button:hover {
+    background-color: #3a0000;
+    transform: scale(1.05);
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
