@@ -32,10 +32,10 @@ const Header = () => {
         <div className=" space-x-6 hidden lg:flex relative">
           <div className="relative">
             <button onClick={toggleMenDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
-              Men's Clothes
+              Men's Outfits
             </button>
             {menDropdownOpen && (
-              <div className="absolute left-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+              <div className="absolute left-7 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
                 <Link to="/mensclothing/hoodies" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
                 <Link to="/mensclothing/tshirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">T-Shirts</Link>
                 <Link to="/mensclothing/shirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Shirts</Link>
@@ -45,10 +45,10 @@ const Header = () => {
           </div>
           <div className="relative">
             <button onClick={toggleWomenDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
-              Women's Clothes
+              Women's Outfits
             </button>
             {womenDropdownOpen && (
-              <div className="absolute left-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+              <div className="absolute left-14 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
                 <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
                 <Link to="/womensclothing/kurtis" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
                 <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
@@ -64,23 +64,25 @@ const Header = () => {
               <input type="text" placeholder="Search..." className="focus:outline-none w-32 p-2 bg-yellow-300"/>
               <FontAwesomeIcon icon={faSearch} className="text-yellow-500 pl-2 pr-1 cursor-pointer" />
             </div>
-            <button className='text-yellow-500  transition-colors duration-300 cursor-pointer rounded-md font-bold text-lg px-2 hover:text-yellow-100 '>Login
+            <Link to="/login" className='text-yellow-500  transition-colors duration-300 cursor-pointer rounded-md font-bold text-lg px-2 hover:text-yellow-100 '>Login
               <FontAwesomeIcon icon={faUser} className=" pl-3 " />
-            </button>
+            </Link>
             <button className='text-yellow-500  transition-colors duration-300 cursor-pointer  font-bold text-lg px-2 hover:text-yellow-100 '>Cart
               <FontAwesomeIcon icon={faShoppingCart} className="pl-3" />
             </button>
           </div>
         </div>
         <div className="lg:hidden flex items-center space-x-5">
+          <Link to="/login">
           <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
+          </Link>
           <FontAwesomeIcon icon={faShoppingCart} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
           <button className="text-3xl text-yellow-500" onClick={toggleMenu}>☰</button>
         </div>
       </nav>
       {menuOpen && (
-        <div className="lg:hidden flex flex-col h-screen text-2xl font-bold space-y-8 items-center px-5 py-32  bg-brown-900 ">
-           <button onClick={toggleMenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Men's Clothes</button>
+        <div className="lg:hidden flex flex-col h-screen text-2xl font-bold space-y-8 items-center px-5 py-20  bg-brown-900 ">
+           <button onClick={toggleMenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Men's Outfits</button>
           {menDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
               <Link to="/mensclothing/hoodies" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
@@ -89,7 +91,7 @@ const Header = () => {
               <Link to="/mensclothing/footwear" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
             </div>
           )}
-          <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Women's Clothes</button>
+          <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Women's Outfits</button>
           {womenDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
               <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
