@@ -6,19 +6,8 @@ import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import demo from '../assets/demoShirt.png';
 import ProductCard from '../components/ProductCard.jsx';
+import {products} from '../pages/Array.js';
 
-
-const products = [
-  { id: 1, name: 'New Product 1', image: demo, originalPrice: 159.99, offerPrice: 129.99, rating: 4.5, reviews: 10 },
-  { id: 2, name: 'New Product 2', image: demo, originalPrice: 179.99,  rating: 4.0, reviews: 8 },
-  { id: 3, name: 'New Product 3', image: demo, originalPrice: 199.99, offerPrice: 149.99, rating: 4.8, reviews: 15 },
-  { id: 4, name: 'New Product 4', image: demo, originalPrice: 199.99, rating: 4.8, reviews: 15 },
-  // { id: 5, name: 'New Product 5', image: demo, originalPrice: 159.99, offerPrice: 129.99, rating: 4.5, reviews: 10 },
-  // { id: 6, name: 'New Product 6', image: demo, originalPrice: 179.99,  rating: 4.0, reviews: 8 },
-  // { id: 7, name: 'New Product 7', image: demo, originalPrice: 199.99, rating: 4.8, reviews: 15 },
-  // { id: 8, name: 'New Product 8', image: demo, originalPrice: 199.99, offerPrice: 149.99, rating: 4.8, reviews: 15 },
-  // Add more clothes as needed
-];
 
 const MensClothing = () => {
   useEffect(() => {
@@ -28,9 +17,6 @@ const MensClothing = () => {
       el.classList.add('slide-in');
     });
   }, []);
-  const calculateDiscount = (originalPrice, offerPrice) => {
-    return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
-  };
 
   return (
     <div className="">
@@ -38,7 +24,7 @@ const MensClothing = () => {
       <h1 className="text-4xl font-bold mb-8 text-center text-brown-900">Men's Clothing</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 m-4 ">
       {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        (product.category === 'Shirt'? <ProductCard key={product.id} product={product} />: <></>)
         ))}
       </div>
       <Footer/>
