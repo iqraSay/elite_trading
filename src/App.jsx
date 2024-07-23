@@ -9,6 +9,9 @@ import Acc from './pages/Accessories';
 import LoginPage from './pages/LoginPage';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
+import Categories from './pages/Categories';
+import ErrorPage from './pages/ErrorPage';
+
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
       <Route path='/login' element ={<LoginPage/>} />
       <Route path='/signup' element ={<Signup/>} />
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
+      <Route path='/categories' element ={<Categories/>} />
+      <Route path='*' element ={<ErrorPage/>} />
+
       
 
 

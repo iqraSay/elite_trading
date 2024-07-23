@@ -8,6 +8,8 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menDropdownOpen, setMenDropdownOpen] = useState(false);
   const [womenDropdownOpen, setWomenDropdownOpen] = useState(false);
+  const [accessoriesDropdownOpen, setAccessoriesDropdownOpen] = useState(false);
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -16,11 +18,19 @@ const Header = () => {
   const toggleMenDropdown = () => {
     setMenDropdownOpen(!menDropdownOpen);
     setWomenDropdownOpen(false);
+    setAccessoriesDropdownOpen(false);
   };
 
   const toggleWomenDropdown = () => {
     setWomenDropdownOpen(!womenDropdownOpen);
     setMenDropdownOpen(false);
+    setAccessoriesDropdownOpen(false);    
+  };
+
+  const toggleAccessoriesDropdown = () => {
+    setAccessoriesDropdownOpen(!accessoriesDropdownOpen);
+    setMenDropdownOpen(false);
+    setWomenDropdownOpen(false);
   };
 
   return (
@@ -55,8 +65,17 @@ const Header = () => {
               </div>
             )}
           </div>
+          <div className="relative">
+          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</button>
+          {accessoriesDropdownOpen && (
+            <div className="absolute left-5 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+              <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
+              <Link to="/accessories/jewelry" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
+            </div>
+          )}
+          </div>
           <Link to="/categories" className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Categories</Link>
-          <Link to="/accessories" className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</Link>
+          {/* <Link to="/accessories" className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</Link> */}
         </div>
         <div className="hidden lg:flex space-x-6 justify-between items-center">
           <div className=" space-x-2 flex items-center">
@@ -99,7 +118,13 @@ const Header = () => {
               <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
             </div>
           )}
-          <Link to="/accessories" className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</Link>
+          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Accessories</button>
+          {accessoriesDropdownOpen && (
+            <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
+              <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
+              <Link to="/accessories/jewelry" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
+            </div>
+          )}
           <Link to="/categories" className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Categories</Link>
           <div className="relative  w-full px-1 rounded-md flex lg:hidden bg-brown-900">
             <input type="text" placeholder="Search..." className="focus:outline-none placeholder-yellow-300 w-full p-2 border-b text-yellow-500 bg-brown-900 border-b-3 border-b-yellow-500"/>
