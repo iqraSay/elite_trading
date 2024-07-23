@@ -27,10 +27,6 @@ function App() {
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
       <Route path='/categories' element ={<Categories/>} />
       <Route path='*' element ={<ErrorPage/>} />
-
-      
-
-
       </Routes>
     </div>
   );
