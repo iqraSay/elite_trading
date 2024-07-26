@@ -18,7 +18,7 @@ const ProductPage = () => {
       <Header />
       <main className="flex-grow container mx-auto my-8 p-4">
         <div className="flex flex-col md:flex-row items-center">
-          <img src={product.image} alt={product.name} className="w-full md:w-1/2 rounded-lg shadow-lg" />
+          <img src={product.image} alt={product.name} className="w-1/4 h-1/4  rounded-lg shadow-lg" />
           <div className="mt-4 md:mt-0 md:ml-8">
             <h1 className="text-3xl font-bold">{product.name}</h1>
             <p className="text-xl mt-2">${product.offerPrice || product.originalPrice}</p>
