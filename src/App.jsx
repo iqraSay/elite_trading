@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import Categories from './pages/Categories';
 import ErrorPage from './pages/ErrorPage';
+import ProductPage from './pages/ProductPage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
       <Route path='/categories' element ={<Categories/>} />
       <Route path='*' element ={<ErrorPage/>} />
+      <Route path="/product/:productId" element={<ProductPage />} />
       </Routes>
     </div>
   );
