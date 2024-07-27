@@ -22,7 +22,7 @@ const MensClothing = () => {
       <h1 className="text-4xl font-bold mb-8 text-center text-brown-900">Men's Clothing</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 m-4 ">
       {products.map((product) => (
-        (product.category === 'Shirt'? <Link to={`/product/${product.id}`}><ProductCard key={product.id} product={product} /></Link>: <></>)
+        (product.category === 'Shirt'? <Link to={`/product/${product.id}`} target="_blank"><ProductCard key={product.id} product={product} /></Link>: <></>)
         ))}
       </div>
       <Footer/>

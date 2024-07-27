@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Categories from './pages/Categories';
 import ErrorPage from './pages/ErrorPage';
 import ProductPage from './pages/ProductPage';
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <Route path='/categories' element ={<Categories/>} />
       <Route path='*' element ={<ErrorPage/>} />
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path='/cart' element ={<Cart/>} />
       </Routes>
     </div>
   );
