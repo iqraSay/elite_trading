@@ -41,7 +41,7 @@ const Header = () => {
         </div>
         <div className=" space-x-6 hidden lg:flex relative">
           <div className="relative">
-            <button onClick={toggleMenDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
+            <button onClick={toggleMenDropdown} className="text-yellow-500 hover:bg-brown-900 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
               Men's Outfits
             </button>
             {menDropdownOpen && (
@@ -54,7 +54,7 @@ const Header = () => {
             )}
           </div>
           <div className="relative">
-            <button onClick={toggleWomenDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
+            <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:bg-brown-900 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">
               Women's Outfits
             </button>
             {womenDropdownOpen && (
@@ -66,7 +66,7 @@ const Header = () => {
             )}
           </div>
           <div className="relative">
-          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</button>
+          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:bg-brown-900 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</button>
           {accessoriesDropdownOpen && (
             <div className="absolute left-5 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
               <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
@@ -101,7 +101,7 @@ const Header = () => {
       </nav>
       {menuOpen && (
         <div className="lg:hidden flex flex-col h-screen text-2xl font-bold space-y-8 items-center px-5 py-20  bg-brown-900 ">
-           <button onClick={toggleMenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Men's Outfits</button>
+           <button onClick={toggleMenDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Men's Outfits</button>
           {menDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
               <Link to="/mensclothing/hoodies" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
@@ -110,7 +110,7 @@ const Header = () => {
               <Link to="/mensclothing/footwear" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
             </div>
           )}
-          <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Women's Outfits</button>
+          <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Women's Outfits</button>
           {womenDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
               <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
@@ -118,7 +118,7 @@ const Header = () => {
               <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
             </div>
           )}
-          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Accessories</button>
+          <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Accessories</button>
           {accessoriesDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
               <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
