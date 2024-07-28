@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import '../App.css';
+import { products } from '../pages/Array.js';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
 
@@ -9,81 +7,128 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    // Retrieve cart items from local storage or state management
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(storedCartItems);
+    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+    const items = Object.keys(storedCartItems).map(id => {
+      const product = products.find(p => p.id === id);
+      if (product) {
+        return { ...product, quantity: storedCartItems[id] };
+      }
+      return null;
+    }).filter(item => item !== null);
+    setCartItems(items);
   }, []);
 
-  const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
-    setCartItems(newCartItems);
-    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+  const handleRemoveItem = (id) => {
+    const updatedCartItems = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedCartItems);
+
+    const updatedStorageItems = JSON.parse(localStorage.getItem('cartItems'));
+    delete updatedStorageItems[id];
+    localStorage.setItem('cartItems', JSON.stringify(updatedStorageItems));
   };
 
-  const calculateTotal = () => {
-    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const handleIncrement = (id) => {
+    const updatedCartItems = cartItems.map(item =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCartItems(updatedCartItems);
+
+    const updatedStorageItems = JSON.parse(localStorage.getItem('cartItems'));
+    updatedStorageItems[id] += 1;
+    localStorage.setItem('cartItems', JSON.stringify(updatedStorageItems));
   };
+
+  const handleDecrement = (id) => {
+    const updatedCartItems = cartItems.map(item =>
+      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    ).filter(item => item.quantity > 0);
+    setCartItems(updatedCartItems);
+
+    const updatedStorageItems = JSON.parse(localStorage.getItem('cartItems'));
+    if (updatedStorageItems[id] > 1) {
+      updatedStorageItems[id] -= 1;
+    } else {
+      delete updatedStorageItems[id];
+    }
+    localStorage.setItem('cartItems', JSON.stringify(updatedStorageItems));
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
+
+  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.originalPrice, 0).toFixed(2);
 
   return (
-    <div className="container ">
-        <Header />
-      <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
-      {cartItems.length === 0 ? (
-        <p className="text-center">Your cart is empty</p>
-      ) : (
-        <div className="flex">
-          <div className="w-2/3">
-            <div className="bg-yellow-100 p-4 rounded-lg shadow-lg">
-              <TransitionGroup>
-                {cartItems.map((item, index) => (
-                  <CSSTransition key={index} timeout={300} classNames="fade">
-                    <div className="flex justify-between items-center mb-4">
-                      <img src={item.image} alt={item.name} className="w-16 h-16" />
-                      <div className="flex-1 ml-4">
-                        <h3 className="text-xl font-semibold">{item.name}</h3>
-                        <p className="text-sm">Color: {item.color}</p>
-                        <p className="text-sm">Weight: {item.weight}</p>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <span className="text-lg">{item.price} x {item.quantity}</span>
-                        <button
-                          onClick={() => removeFromCart(index)}
-                          className="bg-red-500 text-white p-2 rounded-full"
-                        >
-                          &times;
-                        </button>
-                      </div>
-                    </div>
-                  </CSSTransition>
+    <div>
+      <Header />
+      <div className="container mx-auto p-4">
+        <h1 className="text-4xl text-center font-bold mb-4">Shopping Cart</h1>
+        {cartItems.length > 0 ? (
+          <div className="flex flex-col lg:flex-row justify-between">
+            <div className="w-full lg:w-3/4">
+              <table className="min-w-full border text-center overflow-x-auto">
+                <thead>
+                  <tr className="bg-secondary text-secondary-foreground">
+                    <th className="border p-2">Product</th>
+                    <th className="border p-2">Price</th>
+                    <th className="border p-2">Quantity</th>
+                    <th className="border p-2">Total</th>
+                    <th className="border p-2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map(item => (
+                    <tr key={item.id} className="fade-in">
+                      <td className="border p-2 flex items-center justify-center">
+                        <img src={item.image} alt={item.name} className="w-20 h-20 mr-4" />
+                        <div>
+                          <p className="font-bold">{item.name}</p>
+                        </div>
+                      </td>
+                      <td className="border p-2">₹{item.originalPrice.toFixed(2)}</td>
+                      <td className="border p-2 flex items-center justify-center">
+                        <button onClick={() => handleDecrement(item.id)} className="px-2 hover:bg-transparent">-</button>
+                        <span className="mx-2">{item.quantity}</span>
+                        <button onClick={() => handleIncrement(item.id)} className="px-2 hover:bg-transparent">+</button>
+                      </td>
+                      <td className="border p-2">₹{(item.originalPrice * item.quantity).toFixed(2)}</td>
+                      <td className="border p-2">
+                        <button onClick={() => handleRemoveItem(item.id)} className="text-red-500 hover:bg-transparent">Remove</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="mt-4 flex justify-between">
+                <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded hover:bg-yellow-500" onClick={handleClearCart}>Clear Cart</button>
+                <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded hover:bg-yellow-500">Continue Shopping</button>
+              </div>
+            </div>
+            <div className="w-full lg:w-1/4 p-4 bg-white shadow-lg rounded-lg mt-4 lg:mt-0">
+              <h2 className="text-2xl font-bold mb-4">Summary</h2>
+              <ul className='justify-between'>
+                {cartItems.map(item => (
+                  <li key={item.id} className="mb-2 flex justify-between">
+                    <span>{item.name}:</span>
+                    <span> ₹{(item.originalPrice * item.quantity).toFixed(2)}</span>
+                    
+                  </li>
                 ))}
-              </TransitionGroup>
+              </ul>
+              <div className="mt-4 flex justify-between">
+                <span>SUBTOTAL</span>
+                <span>₹{subtotal}</span>
+              </div>
+              <button className="w-full bg-brown-900 text-yellow-200 py-2 rounded mt-4 hover:bg-yellow-500">Check Out</button>
             </div>
           </div>
-          <div className="w-1/3 bg-yellow-100 p-4 rounded-lg shadow-lg">
-            <h3 className="text-xl font-bold mb-2">Summary</h3>
-            <div className="mb-2">
-              {cartItems.map((item, index) => (
-                <div key={index} className="flex justify-between">
-                  <span>{item.name}</span>
-                  <span>{item.price * item.quantity}</span>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between font-bold border-t pt-2">
-              <span>Total</span>
-              <span>{calculateTotal()}</span>
-            </div>
-            <Link
-              to="/checkout"
-              className="block bg-yellow-500 text-white text-center p-2 mt-4 rounded"
-            >
-              Proceed to Checkout
-            </Link>
-          </div>
-        </div>
-      )}
-      <Footer/>
+        ) : (
+          <p className="text-center text-2xl">Your cart is empty.</p>
+        )}
+      </div>
+      <Footer />
     </div>
   );
 };

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import '../App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import demo from '../assets/demoAcc.png';
@@ -27,9 +25,6 @@ const Accessories = () => {
       el.classList.add('slide-in');
     });
   }, []);
-  const calculateDiscount = (originalPrice, offerPrice) => {
-    return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
-  };
 
   return (
     <div className="">
