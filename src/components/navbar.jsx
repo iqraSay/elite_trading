@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/eliteTradingLogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

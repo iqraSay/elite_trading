@@ -27,10 +27,6 @@ const WomensClothing = () => {
     });
   }, []);
 
-  const calculateDiscount = (originalPrice, offerPrice) => {
-    return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
-  };
-
   return (
     <div className="">
         <Header/>

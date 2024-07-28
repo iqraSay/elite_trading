@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Featured from '../components/Featured.jsx';

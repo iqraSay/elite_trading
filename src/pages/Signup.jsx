@@ -87,7 +87,7 @@ const Signup = () => {
                   type="password"
                   placeholder="Mobile Number"
                   value={mobile}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setMobile(e.target.value)}
                   onFocus={(e) => e.target.classList.add('focus')}
                   onBlur={(e) => e.target.classList.remove('focus')}
                   className="w-full p-3 border rounded-lg border-gray-300 transition-all"

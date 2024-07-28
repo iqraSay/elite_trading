@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faBagShopping, faArrowLeft, faArrowRight, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 import demo1 from '../assets/demoShirt.png';
 import demo2 from '../assets/demoDress.png';
@@ -32,8 +32,6 @@ const Arrow = ({ className, onClick, icon }) => (
 );
 
 const NewArrivals = () => {
-
-  const [cart, setCart] = useState({});
 
   const settings = {
     dots: false,
