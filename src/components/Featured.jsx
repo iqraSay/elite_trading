@@ -7,8 +7,6 @@ import demo2 from '../assets/demoDress.png';
 import demo3 from '../assets/demoShoes.png';
 import demo4 from '../assets/demoAcc.png';
 
-
-
 const products = [
   { id: 1, name: 'Product 1', image: demo1, originalPrice: 159.99, offerPrice: 129.99 },
   { id: 2, name: 'Product 2', image: demo2, originalPrice: 179.99 },
@@ -17,7 +15,7 @@ const products = [
   { id: 5, name: 'Product 5', image: demo4, originalPrice: 159.99},
   // Add more products as needed
 ];
-
+// eddy_dzs ni.tesh64x
 const Featured = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cart, setCart] = useState({});
