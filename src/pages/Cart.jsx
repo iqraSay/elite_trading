@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
+import { Link } from 'react-router-dom';
 import { products } from '../pages/Array.js';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -69,33 +70,33 @@ const Cart = () => {
         {cartItems.length > 0 ? (
           <div className="flex flex-col lg:flex-row justify-between">
             <div className="w-full lg:w-3/4">
-              <table className="min-w-full border text-center overflow-x-auto">
+              <table className="min-w-full  text-center overflow-x-auto">
                 <thead>
                   <tr className="bg-secondary text-secondary-foreground">
-                    <th className="border p-2">Product</th>
-                    <th className="border p-2">Price</th>
-                    <th className="border p-2">Quantity</th>
-                    <th className="border p-2">Total</th>
-                    <th className="border p-2">Actions</th>
+                    <th className=" p-2">Product</th>
+                    <th className=" p-2">Price</th>
+                    <th className=" p-2">Quantity</th>
+                    <th className=" p-2">Total</th>
+                    <th className=" p-2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cartItems.map(item => (
                     <tr key={item.id} className="fade-in">
-                      <td className="border p-2 flex items-center justify-center">
-                        <img src={item.image} alt={item.name} className="w-20 h-20 mr-4" />
+                      <td className=" p-2 flex items-center justify-center">
+                        <img src={item.image} alt={item.name} className="w-20 h-20 mr-4 hidden md:flex" />
                         <div>
                           <p className="font-bold">{item.name}</p>
                         </div>
                       </td>
-                      <td className="border p-2">₹{item.originalPrice.toFixed(2)}</td>
-                      <td className="border p-2 flex items-center justify-center">
-                        <button onClick={() => handleDecrement(item.id)} className="px-2 hover:bg-transparent">-</button>
-                        <span className="mx-2">{item.quantity}</span>
-                        <button onClick={() => handleIncrement(item.id)} className="px-2 hover:bg-transparent">+</button>
+                      <td className=" p-2">₹{item.originalPrice.toFixed(2)}</td>
+                      <td className=" p-2 flex items-center justify-center  absolute">
+                        <button onClick={() => handleDecrement(item.id)} className="px-2 hover:bg-transparent lg:top-7 relative lg:ml-14">-</button>
+                        <span className="mx-2 lg:top-7 relative">{item.quantity}</span>
+                        <button onClick={() => handleIncrement(item.id)} className="px-2 hover:bg-transparent lg:top-7 relative ">+</button>
                       </td>
-                      <td className="border p-2">₹{(item.originalPrice * item.quantity).toFixed(2)}</td>
-                      <td className="border p-2">
+                      <td className=" p-2">₹{(item.originalPrice * item.quantity).toFixed(2)}</td>
+                      <td className=" p-2">
                         <button onClick={() => handleRemoveItem(item.id)} className="text-red-500 hover:bg-transparent">Remove</button>
                       </td>
                     </tr>
@@ -103,9 +104,8 @@ const Cart = () => {
                 </tbody>
               </table>
               <div className="mt-4 flex justify-between">
-                <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded hover:bg-yellow-500" onClick={handleClearCart}>Clear Cart</button>
-                <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded hover:bg-yellow-500">Continue Shopping</button>
-              </div>
+                <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded hover:bg-yellow-500 hover:text-brown-900" onClick={handleClearCart}>Clear Cart</button>
+            </div>
             </div>
             <div className="w-full lg:w-1/4 p-4 bg-white shadow-lg rounded-lg mt-4 lg:mt-0">
               <h2 className="text-2xl font-bold mb-4">Summary</h2>
@@ -122,7 +122,8 @@ const Cart = () => {
                 <span>SUBTOTAL</span>
                 <span>₹{subtotal}</span>
               </div>
-              <button className="w-full bg-brown-900 text-yellow-200 py-2 rounded mt-4 hover:bg-yellow-500">Check Out</button>
+              <Link to={"/checkout"}>
+              <button className="w-full bg-brown-900 text-yellow-200 py-2 rounded mt-4 hover:bg-yellow-500 hover:text-brown-900 ">Check Out</button></Link>
             </div>
           </div>
         ) : (
