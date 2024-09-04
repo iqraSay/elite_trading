@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Featured from '../components/Featured.jsx';
 import NewArrivals from '../components/NewArrivals.jsx';
-import ban from '../assets/banner1.jpg';
+import Sban from '../assets/ShirtsBanner.png';
+import Hban from '../assets/hoodiesBanner.webp';
+import Shban from '../assets/ShoesBanner.png';
+import Wban from '../assets/WatchesBanner.jpg';
+
 
 const Home = () => {
   
@@ -17,12 +22,16 @@ const Home = () => {
         <button className="bg-brown-900 text-yellow-200 py-2 px-4 rounded-full hover:bg-white hover:text-yellow-500 transition-colors duration-300;">Shop Now</button>
         
       </div>
-      <div>
-        <img src={ban} alt="banner" />
-      </div>
+      <Link to='/mensclothing/footwear'><img src={Shban} alt="banner" className='w-full md:h-[70vh]' /></Link>
       <div className=" bg-gray-200">
         <Featured  />
       </div>
+      <Link to='/mensclothing/shirts'><img src={Sban} alt="banner" className='w-full ' /></Link>
+
+      <NewArrivals/>
+      <Link to='/mensclothing/hoodies'><img src={Hban} alt="banner" className='w-full ' /></Link>
+      <NewArrivals/>
+      <Link to='/accessories/watches'><img src={Wban} alt="banner" className='w-full ' /></Link>
       <NewArrivals/>
       <Footer/>
     </div>

@@ -1,10 +1,15 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import MensClothing from './pages/MensClothing';
-import WomensClothing from './pages/WomensClothing';
+import Shirts from './pages/Shirts';
+import Kurtis from './pages/Kurtis';
+import Hoodies from './pages/Hoodies';
+import Tshirts from './pages/Tshirts';
+import Gowns from './pages/Gowns';
+import Suits from './pages/Suits';
+import Watches from './pages/Watches';
 import Shoes from './pages/Shoes';
-import Acc from './pages/Accessories';
+import Jewelry from './pages/Jewelry';
 import LoginPage from './pages/LoginPage';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
@@ -19,10 +24,15 @@ function App() {
     <div className="App">
       <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/mensclothing' element ={<MensClothing/>} />
-      <Route path='/womensclothing' element ={<WomensClothing/>} />
-      <Route path='/shoes' element ={<Shoes/>} />
-      <Route path='/accessories' element ={<Acc/>} />
+      <Route path='/mensclothing/Shirts' element ={<Shirts/>} />
+      <Route path='/mensclothing/Tshirts' element ={<Tshirts/>} />
+      <Route path='/mensclothing/Hoodies' element ={<Hoodies/>} />
+      <Route path='/womensclothing/Kurtis' element ={<Kurtis/>} />
+      <Route path='/womensclothing/Gowns' element ={<Gowns/>} />
+      <Route path='/womensclothing/Suits' element ={<Suits/>} />
+      <Route path='/mensclothing/footwear' element ={<Shoes/>} />
+      <Route path='/accessories/jewelry' element ={<Jewelry/>} />
+      <Route path='/accessories/watches' element ={<Watches/>} />
       <Route path='/login' element ={<LoginPage/>} />
       <Route path='/signup' element ={<Signup/>} />
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
