@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { products } from '../pages/Array.js';
 import Header from '../components/navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import emptyCart from '../assets/EmptyCart.png';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -125,7 +126,11 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <p className="text-center text-2xl">Your cart is empty.</p>
+          <div className='md:h-[55vh] h-[60vh]'>
+            <img src={emptyCart} alt="empty cart" className='md:w-1/5 md:h-1/2 w-[150px] mr-auto ml-auto' />
+          <p className="text-center font-bold text-3xl">Your cart is empty.</p>
+          <p className="text-center text-2xl">Looks like you haven't added anythign to your cart. Go ahead and explore top categories</p>
+          </div>
         )}
       </div>
       <Footer />
