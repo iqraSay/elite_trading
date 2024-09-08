@@ -3,7 +3,7 @@ import demoS from '../assets/demoShoes.png';
 import demoJ from '../assets/demoAcc.png';
 import demoGown from '../assets/demoGown.jpg';
 import demoSuit from '../assets/demoSuit.png';
-import demoKurti from '../assets/demoKurti.jpg';
+import demoKurti from '../assets/demoKurti.png';
 import demoTshirt from '../assets/demoTshirt.png';
 import demoHoodie from '../assets/demoHoodie.jpg';
 import demoWatch from '../assets/demoWatch.jpeg';
@@ -11,21 +11,21 @@ import demoWatch from '../assets/demoWatch.jpeg';
 export const products = [
 
   // Shirts
-  { id: '1t', name: 'Shirt 1', image: 'demoT', imageB: 'demoT', originalPrice: 159.99, offerPrice: 129.99, rating: 4.5, reviews: 10, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Grey', fabricType: 'Polyester' },
-  { id: '2t', name: 'Shirt 2', image: 'demoT', imageB: 'demoT', originalPrice: 139.99, offerPrice: 109.99, rating: 4.2, reviews: 15, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Blue', fabricType: 'Cotton' },
-  { id: '3t', name: 'Shirt 3', image: 'demoT', imageB: 'demoT', originalPrice: 119.99, offerPrice: 99.99, rating: 4.8, reviews: 8, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Black', fabricType: 'Polyester' },
-  { id: '4t', name: 'Shirt 4', image: 'demoT', imageB: 'demoT', originalPrice: 129.99, offerPrice: 119.99, rating: 4.4, reviews: 12, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'White', fabricType: 'Linen' },
-  { id: '5t', name: 'Shirt 5', image: 'demoT', imageB: 'demoT', originalPrice: 149.99, offerPrice: 139.99, rating: 4.7, reviews: 20, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Green', fabricType: 'Wool' },
-  { id: '6t', name: 'Shirt 6', image: 'demoT', imageB: 'demoT', originalPrice: 159.99, offerPrice: 149.99, rating: 4.6, reviews: 5, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Red', fabricType: 'Cotton' },
-  { id: '7t', name: 'Shirt 7', image: 'demoT', imageB: 'demoT', originalPrice: 169.99, rating: 4.3, reviews: 25, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Purple', fabricType: 'Polyester' },
-  { id: '8t', name: 'Shirt 8', image: 'demoT', imageB: 'demoT', originalPrice: 179.99, offerPrice: 169.99, rating: 4.5, reviews: 18, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'Orange', fabricType: 'Linen' },
-  { id: '9t', name: 'Shirt 9', image: 'demoT', imageB: 'demoT', originalPrice: 139.99, rating: 4.1, reviews: 30, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Beige', fabricType: 'Wool' },
-  { id: '10t', name: 'Shirt 10', image: 'demoT', imageB: 'demoT', originalPrice: 129.99, offerPrice: 119.99, rating: 4.4, reviews: 22, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Navy', fabricType: 'Cotton' },
-  { id: '11t', name: 'Shirt 11', image: 'demoT', imageB: 'demoT', originalPrice: 109.99, rating: 4.0, reviews: 7, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Grey', fabricType: 'Polyester' },
-  { id: '12t', name: 'Shirt 12', image: 'demoT', imageB: 'demoT', originalPrice: 149.99, offerPrice: 139.99, rating: 4.6, reviews: 11, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'Blue', fabricType: 'Linen' },
-  { id: '13t', name: 'Shirt 13', image: 'demoT', imageB: 'demoT', originalPrice: 119.99, rating: 4.2, reviews: 14, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'White', fabricType: 'Cotton' },
-  { id: '14t', name: 'Shirt 14', image: 'demoT', imageB: 'demoT', originalPrice: 129.99, offerPrice: 119.99, rating: 4.7, reviews: 16, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Black', fabricType: 'Polyester' },
-  { id: '15t', name: 'Shirt 15', image: 'demoT', imageB: 'demoT', originalPrice: 159.99, offerPrice: 149.99, rating: 4.5, reviews: 10, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Orange', fabricType: 'Wool' },
+  { id: '1t', name: 'Shirt 1', image: demoT, imageB: demoT, originalPrice: 159.99, offerPrice: 129.99, rating: 4.5, reviews: 10, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Grey', fabricType: 'Polyester' },
+  { id: '2t', name: 'Shirt 2', image: demoT, imageB: demoT, originalPrice: 139.99, offerPrice: 109.99, rating: 4.2, reviews: 15, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Blue', fabricType: 'Cotton' },
+  { id: '3t', name: 'Shirt 3', image: demoT, imageB: demoT, originalPrice: 119.99, offerPrice: 99.99, rating: 4.8, reviews: 8, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Black', fabricType: 'Polyester' },
+  { id: '4t', name: 'Shirt 4', image: demoT, imageB: demoT, originalPrice: 129.99, offerPrice: 119.99, rating: 4.4, reviews: 12, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'White', fabricType: 'Linen' },
+  { id: '5t', name: 'Shirt 5', image: demoT, imageB: demoT, originalPrice: 149.99, offerPrice: 139.99, rating: 4.7, reviews: 20, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Green', fabricType: 'Wool' },
+  { id: '6t', name: 'Shirt 6', image: demoT, imageB: demoT, originalPrice: 159.99, offerPrice: 149.99, rating: 4.6, reviews: 5, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Red', fabricType: 'Cotton' },
+  { id: '7t', name: 'Shirt 7', image: demoT, imageB: demoT, originalPrice: 169.99, rating: 4.3, reviews: 25, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Purple', fabricType: 'Polyester' },
+  { id: '8t', name: 'Shirt 8', image: demoT, imageB: demoT, originalPrice: 179.99, offerPrice: 169.99, rating: 4.5, reviews: 18, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'Orange', fabricType: 'Linen' },
+  { id: '9t', name: 'Shirt 9', image: demoT, imageB: demoT, originalPrice: 139.99, rating: 4.1, reviews: 30, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Beige', fabricType: 'Wool' },
+  { id: '10t', name: 'Shirt 10', image: demoT, imageB: demoT, originalPrice: 129.99, offerPrice: 119.99, rating: 4.4, reviews: 22, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'Navy', fabricType: 'Cotton' },
+  { id: '11t', name: 'Shirt 11', image: demoT, imageB: demoT, originalPrice: 109.99, rating: 4.0, reviews: 7, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Grey', fabricType: 'Polyester' },
+  { id: '12t', name: 'Shirt 12', image: demoT, imageB: demoT, originalPrice: 149.99, offerPrice: 139.99, rating: 4.6, reviews: 11, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'XL', color: 'Blue', fabricType: 'Linen' },
+  { id: '13t', name: 'Shirt 13', image: demoT, imageB: demoT, originalPrice: 119.99, rating: 4.2, reviews: 14, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'M', color: 'White', fabricType: 'Cotton' },
+  { id: '14t', name: 'Shirt 14', image: demoT, imageB: demoT, originalPrice: 129.99, offerPrice: 119.99, rating: 4.7, reviews: 16, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'L', color: 'Black', fabricType: 'Polyester' },
+  { id: '15t', name: 'Shirt 15', image: demoT, imageB: demoT, originalPrice: 159.99, offerPrice: 149.99, rating: 4.5, reviews: 10, category: 'Shirt', description: 'Lorem ipsum dolor sit amet consectetur...', size: 'S', color: 'Orange', fabricType: 'Wool' },
   
   // Shoes
   { id: '1s', name: 'Shoe 1', image: demoS, imageB: demoS, originalPrice: 159.99, offerPrice: 129.99, rating: 4.5, reviews: 10, category: 'Shoes', description: 'Lorem ipsum dolor sit amet consectetur...' },
