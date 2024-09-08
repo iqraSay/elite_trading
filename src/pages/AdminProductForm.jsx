@@ -14,41 +14,54 @@ const AdminProductForm = () => {
   const [description, setDescription] = useState('');
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
-  const [fabricType, setFabricType] = useState('');
-  
+  const [material, setMaterial] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!productId) newErrors.productId = 'Product ID is required.';
+    if (!name) newErrors.name = 'Product name is required.';
+    if (!image) newErrors.image = 'Product image is required.';
+    if (!backImage) newErrors.backImage = 'Back image is required.';
+    if (!originalPrice) newErrors.originalPrice = 'Original price is required.';
+    if (!description) newErrors.description = 'Description is required.';
+    if (!size) newErrors.size = 'Size is required.';
+    if (!color) newErrors.color = 'Color is required.';
+    if (!material) newErrors.material = 'Material is required.';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    if (!validateForm()) return;
+
     try {
-      // Upload images to Firebase Storage
       const imageRef = ref(storage, `products/${image.name}`);
       const backImageRef = ref(storage, `products/${backImage.name}`);
-      
+
       await uploadBytes(imageRef, image);
       const imageUrl = await getDownloadURL(imageRef);
-      
+
       await uploadBytes(backImageRef, backImage);
       const backImageUrl = await getDownloadURL(backImageRef);
 
-      // Store product data in Firestore
       const productData = {
         productId,
         name,
         imageUrl,
         backImageUrl,
-        originalPrice,
-        offerPrice,
+        originalPrice: parseInt(originalPrice),
+        offerPrice: offerPrice ? parseInt(offerPrice) : 0,
         category,
         description,
         size,
         color,
-        fabricType
+        material,
       };
 
       await addDoc(collection(firestore, 'products'), productData);
-
       alert('Product added successfully!');
-      // Reset form
       setProductId('');
       setName('');
       setImage(null);
@@ -59,18 +72,20 @@ const AdminProductForm = () => {
       setDescription('');
       setSize('');
       setColor('');
-      setFabricType('');
+      setMaterial('');
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       alert('Error adding product');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-yellow-200 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4 text-brown-900">Add New Product</h2>
+    <form 
+      onSubmit={handleSubmit}
+      className="max-w-lg lg:max-w-full lg:w-4/5 mx-auto p-6 bg-gradient-to-b from-white to-yellow-200 rounded-lg shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 fade-in"
+    >
+      <h2 className="col-span-1 lg:col-span-2 text-center text-2xl font-bold mb-4 text-brown-900">Add New Product</h2>
 
-      {/* Product ID Field */}
       <div className="mb-4">
         <label className="block text-brown-900 mb-2">Product ID</label>
         <input
@@ -79,6 +94,7 @@ const AdminProductForm = () => {
           onChange={(e) => setProductId(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.productId && <p className="text-red-500">{errors.productId}</p>}
       </div>
 
       {/* Name Field */}
@@ -90,6 +106,7 @@ const AdminProductForm = () => {
           onChange={(e) => setName(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.name && <p className="text-red-500">{errors.name}</p>}
       </div>
 
       {/* Image Field */}
@@ -98,8 +115,9 @@ const AdminProductForm = () => {
         <input
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-full px-4 py-2 cursor-pointer"
         />
+        {errors.image && <p className="text-red-500">{errors.image}</p>}
       </div>
 
       {/* Back Image Field */}
@@ -108,8 +126,9 @@ const AdminProductForm = () => {
         <input
           type="file"
           onChange={(e) => setBackImage(e.target.files[0])}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-full px-4 py-2 cursor-pointer"
         />
+        {errors.backImage && <p className="text-red-500">{errors.backImage}</p>}
       </div>
 
       {/* Original Price Field */}
@@ -121,6 +140,7 @@ const AdminProductForm = () => {
           onChange={(e) => setOriginalPrice(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.originalPrice && <p className="text-red-500">{errors.originalPrice}</p>}
       </div>
 
       {/* Offer Price Field */}
@@ -145,15 +165,6 @@ const AdminProductForm = () => {
         />
       </div>
 
-      {/* Description Field */}
-      <div className="mb-4">
-        <label className="block text-brown-900 mb-2">Description</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        ></textarea>
-      </div>
 
       {/* Size Field */}
       <div className="mb-4">
@@ -164,6 +175,7 @@ const AdminProductForm = () => {
           onChange={(e) => setSize(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.size && <p className="text-red-500">{errors.size}</p>}
       </div>
 
       {/* Color Field */}
@@ -175,26 +187,40 @@ const AdminProductForm = () => {
           onChange={(e) => setColor(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.color && <p className="text-red-500">{errors.color}</p>}
       </div>
 
-      {/* Fabric Type Field */}
+      {/* Material Field */}
       <div className="mb-4">
-        <label className="block text-brown-900 mb-2">Fabric Type</label>
+        <label className="block text-brown-900 mb-2">Material</label>
         <input
           type="text"
-          value={fabricType}
-          onChange={(e) => setFabricType(e.target.value)}
+          value={material}
+          onChange={(e) => setMaterial(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
+        {errors.material && <p className="text-red-500">{errors.material}</p>}
       </div>
 
+      {/* Description Field */}
+      <div className="mb-4 lg:col-span-2">
+        <label className="block text-brown-900 mb-2">Description</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        ></textarea>
+        {errors.description && <p className="text-red-500">{errors.description}</p>}
+      </div>
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-      >
-        Add Product
-      </button>
+      <div className="mb-4 col-span-1 lg:col-span-2">
+        <button 
+          type="submit"
+          className="w-full py-2 bg-brown-900 text-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-brown-900 border-brown-900"
+        >
+          Add Product
+        </button>
+      </div>
     </form>
   );
 };

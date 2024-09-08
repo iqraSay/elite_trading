@@ -6,6 +6,7 @@ import Kurtis from './pages/Kurtis';
 import Hoodies from './pages/Hoodies';
 import Tshirts from './pages/Tshirts';
 import Gowns from './pages/Gowns';
+import Dresses from './pages/Dresses';
 import Suits from './pages/Suits';
 import Watches from './pages/Watches';
 import Shoes from './pages/Shoes';
@@ -31,6 +32,7 @@ function App() {
       <Route path='/mensclothing/Hoodies' element ={<Hoodies/>} />
       <Route path='/womensclothing/Kurtis' element ={<Kurtis/>} />
       <Route path='/womensclothing/Gowns' element ={<Gowns/>} />
+      <Route path='/womensclothing/Dresses' element ={<Dresses/>} />
       <Route path='/womensclothing/Suits' element ={<Suits/>} />
       <Route path='/mensclothing/footwear' element ={<Shoes/>} />
       <Route path='/accessories/jewelry' element ={<Jewelry/>} />

@@ -59,6 +59,7 @@ const Header = () => {
             </button>
             {womenDropdownOpen && (
               <div className="absolute left-14 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+                <Link to="/womensclothing/dresses" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
                 <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
                 <Link to="/womensclothing/kurtis" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
                 <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
@@ -115,6 +116,7 @@ const Header = () => {
           <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Women's Outfits</button>
           {womenDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
+              <Link to="/womensclothing/dresses" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
               <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
               <Link to="/womensclothing/kurtis" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
               <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
