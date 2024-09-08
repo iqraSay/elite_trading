@@ -18,6 +18,7 @@ import ErrorPage from './pages/ErrorPage';
 import ProductPage from './pages/ProductPage';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import AdminProductForm from './pages/AdminProductForm';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <Route path='*' element ={<ErrorPage/>} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path='/cart' element ={<Cart/>} />
+      <Route path='/AdminProductForm' element ={<AdminProductForm/>} />
       </Routes>
     </div>
   );

@@ -5,7 +5,7 @@ import Footer from '../components/Footer.jsx';
 import demoSh from '../assets/demoShirt.png';
 import demoT from '../assets/demoTshirt.png';
 import demoH from '../assets/demoHoodie.jpg';
-import demoK from '../assets/demoKurti.jpg';
+import demoK from '../assets/demoKurti.png';
 import demoG from '../assets/demoGown.jpg';
 import demoS from '../assets/demoShoes.png';
 import demoA from '../assets/demoAcc.png';
