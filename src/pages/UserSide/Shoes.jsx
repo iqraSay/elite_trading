@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import '../App.css';
+import '../../App.css';
 import { Link } from 'react-router-dom';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import ProductCard from '../components/ProductCard.jsx';
-import {products} from './Array.js';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import ProductCard from '../../components/ProductCard.jsx';
+import {products} from '../Array.js';
 
 
-const Suits = () => {
+const Hoodies = () => {
   useEffect(() => {
     const elements = document.querySelectorAll('.clothing-item');
     elements.forEach((el, index) => {
@@ -19,10 +19,10 @@ const Suits = () => {
   return (
     <div className="">
         <Header/>
-      <h1 className="text-4xl font-bold mb-8 text-center text-brown-900">Women's Suits</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-brown-900">Men's Shoes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 m-4 ">
       {products.map((product) => (
-        (product.category === 'Suit'? <Link to={`/product/${product.id}`} target="_blank"><ProductCard key={product.id} product={product} /></Link>: <></>)
+        (product.category === 'Shoes'? <Link to={`/product/${product.id}`} target="_blank"><ProductCard key={product.id} product={product} /></Link>: <></>)
         ))}
       </div>
       <Footer/>
@@ -30,4 +30,4 @@ const Suits = () => {
   );
 };
 
-export default Suits;
+export default Hoodies;

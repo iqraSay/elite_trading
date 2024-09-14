@@ -1,11 +1,11 @@
 // src/pages/ProductDetails.jsx
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from '../pages/Array.js';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import SizeChart from '../components/SizeChart.jsx';
-import AddCart from '../components/AddCart';
+import { products } from '../Array.js';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import SizeChart from '../../components/SizeChart.jsx';
+import AddCart from '../../components/AddCart.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBill1Wave, faHeart } from '@fortawesome/free-solid-svg-icons';
 

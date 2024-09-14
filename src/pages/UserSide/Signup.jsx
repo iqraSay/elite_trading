@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/navbar.jsx';
+import Header from '../../components/navbar.jsx';
 import './LoginPage.css';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [mobile, setMobile] = useState('');
+    const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({ username: '', password: '', mobile: '' });
     const [successMessage, setSuccessMessage] = useState('');
   
     const handleSubmit = (e) => {
       e.preventDefault();
       let valid = true;
-      const newErrors = { username: '', password: '', mobile:'' };
+      const newErrors = { username: '', password: '',email: '', mobile:'' };
+      const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
   
       if (!username) {
-        newErrors.username = 'Please enter a valid email';
+        newErrors.username = 'Please enter a username';
         valid = false;
-      } else if (username.indexOf('@') === -1) {
-        newErrors.username = 'Please enter a valid email';
+      }
+  
+      if (!email || !validateEmail(email)) {
+        newErrors.email = 'Please enter a valid email address';
         valid = false;
       }
   
@@ -54,20 +61,32 @@ const Signup = () => {
               <div className="text-green-600 mb-4">{successMessage}</div>
             )}
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onFocus={(e) => e.target.classList.add('focus')}
-                  onBlur={(e) => e.target.classList.remove('focus')}
-                  className="w-full p-3 border rounded-lg border-gray-300 transition-all"
-                />
-                {errors.username && (
-                  <div className="text-red-600 mt-1">{errors.username}</div>
-                )}
-              </div>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onFocus={(e) => e.target.classList.add('focus')}
+                onBlur={(e) => e.target.classList.remove('focus')}
+                className="w-full p-3 border rounded-lg border-gray-300 transition-all"
+              />
+              {errors.username && (
+                <div className="text-red-600 mt-1">{errors.username}</div>
+              )}
+            </div>
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={(e) => e.target.classList.add('focus')}
+                onBlur={(e) => e.target.classList.remove('focus')}
+                className="w-full p-3 border rounded-lg border-gray-300 transition-all"
+              />
+              {errors.email && <div className="text-red-600 mt-1">{errors.email}</div>}
+            </div>
               <div className="relative">
                 <input
                   type="password"

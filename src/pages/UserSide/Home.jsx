@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import Featured from '../components/Featured.jsx';
-import NewArrivals from '../components/NewArrivals.jsx';
-import Sban from '../assets/ShirtsBanner.png';
-import Hban from '../assets/hoodiesBanner.webp';
-import Shban from '../assets/ShoesBanner.png';
-import Wban from '../assets/WatchesBanner.jpg';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import Featured from '../../components/Featured.jsx';
+import NewArrivals from '../../components/NewArrivals.jsx';
+import Sban from '../../assets/ShirtsBanner.png';
+import Hban from '../../assets/hoodiesBanner.webp';
+import Shban from '../../assets/ShoesBanner.png';
+import Wban from '../../assets/WatchesBanner.jpg';
 
 
 const Home = () => {

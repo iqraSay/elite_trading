@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { storage, firestore } from '../Firebase';
+import { storage, firestore } from '../../Firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -155,15 +155,28 @@ const AdminProductForm = () => {
       </div>
 
       {/* Category Field */}
-      <div className="mb-4">
-        <label className="block text-brown-900 mb-2">Category</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        />
-      </div>
+<div className="mb-4">
+  <label className="block text-brown-900 mb-2">Category</label>
+  <select
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+  >
+    <option value="" disabled>Select a category</option>
+    <option value="Hoodie">Hoodie</option>
+    <option value="Shirt">Shirt</option>
+    <option value="Tshirt">Tshirt</option>
+    <option value="Shoes">Shoes</option>
+    <option value="Jewelry">Jewelry</option>
+    <option value="Gown">Gown</option>
+    <option value="Watch">Watch</option>
+    <option value="Dress">Dress</option>
+    <option value="Kurti">Kurti</option>
+    <option value="Suit">Suit</option>
+  </select>
+  {errors.category && <p className="text-red-500">{errors.category}</p>}
+</div>
+
 
 
       {/* Size Field */}

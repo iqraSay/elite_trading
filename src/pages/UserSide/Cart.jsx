@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
-import { products } from '../pages/Array.js';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import emptyCart from '../assets/EmptyCart.png';
+import { products } from '../Array.js';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import emptyCart from '../../assets/EmptyCart.png';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
