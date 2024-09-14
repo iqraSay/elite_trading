@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/eliteTradingLogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart, faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { auth } from '../Firebase';
 import { signOut } from 'firebase/auth';
 
@@ -67,10 +67,10 @@ const Header = () => {
             </button>
             {menDropdownOpen && (
               <div className="absolute left-7 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
-                <Link to="/mensclothing/hoodies" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
-                <Link to="/mensclothing/tshirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">T-Shirts</Link>
-                <Link to="/mensclothing/shirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Shirts</Link>
-                <Link to="/mensclothing/footwear" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
+                <Link to="/productdisplay/Hoodie" onClick={toggleMenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
+                <Link to="/productdisplay/T-Shirt" onClick={toggleMenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">T-Shirts</Link>
+                <Link to="/productdisplay/Shirt" onClick={toggleMenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Shirts</Link>
+                <Link to="/productdisplay/Shoes" onClick={toggleMenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
               </div>
             )}
           </div>
@@ -80,10 +80,10 @@ const Header = () => {
             </button>
             {womenDropdownOpen && (
               <div className="absolute left-14 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
-                <Link to="/womensclothing/dresses" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
-                <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
-                <Link to="/womensclothing/kurtis" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
-                <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
+                <Link to="/productdisplay/Dress" onClick={toggleWomenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
+                <Link to="/productdisplay/Gown" onClick={toggleWomenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
+                <Link to="/productdisplay/Kurti" onClick={toggleWomenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
+                <Link to="/productdisplay/Suit" onClick={toggleWomenDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
               </div>
             )}
           </div>
@@ -91,8 +91,8 @@ const Header = () => {
           <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:bg-brown-900 font-bold text-2xl hover:text-yellow-100 transition-colors duration-300">Accessories</button>
           {accessoriesDropdownOpen && (
             <div className="absolute left-5 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
-              <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
-              <Link to="/accessories/jewelry" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
+              <Link to="/productdisplay/Watch" onClick={toggleAccessoriesDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
+              <Link to="/productdisplay/Jewelry"onClick={toggleAccessoriesDropdown} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
             </div>
           )}
           </div>
