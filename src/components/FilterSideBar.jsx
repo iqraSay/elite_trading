@@ -1,10 +1,7 @@
 // FilterSidebar.jsx
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const FilterSidebar = ({ onFilterChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [size, setSize] = useState('');
@@ -12,9 +9,6 @@ const FilterSidebar = ({ onFilterChange }) => {
   const [fabricType, setFabricType] = useState('');
   const [discount, setDiscount] = useState('');
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleFilterChange = () => {
     onFilterChange({ minPrice, maxPrice, size, color, fabricType, discount });
@@ -22,12 +16,8 @@ const FilterSidebar = ({ onFilterChange }) => {
 
   return (
     <div className="lg:block">
-      {/* Hamburger Menu for Mobile */}
-      <button className="lg:hidden block p-4" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faBars} size="lg" className="text-brown-900" />
-      </button>
-
-      <div className={`lg:block ${isOpen ? 'block' : 'hidden'} bg-yellow-100 p-4 rounded-lg shadow-md text-brown-900`}>
+     
+      <div className= "bg-yellow-100 p-4 rounded-lg shadow-md text-brown-900">
         <h2 className="text-2xl font-bold mb-4">Filters</h2>
 
         {/* Price Range Filter */}
