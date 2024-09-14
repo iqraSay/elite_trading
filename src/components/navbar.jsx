@@ -102,7 +102,7 @@ const Header = () => {
         <div className="hidden lg:flex space-x-6 justify-between items-center">
           <div className=" space-x-2 flex items-center">
             <div className="relative focus:shadow-yellow-500 focus:shadow-lg bg-yellow-300 px-1 rounded-md">
-              <input type="text" placeholder="Search..." className="focus:outline-none w-32 p-2 bg-yellow-300"/>
+              <input type="text" placeholder="Search..." className="focus:outline-none w-32 p-2 bg-yellow-300 placeholder-brown-900"/>
               <FontAwesomeIcon icon={faSearch} className="text-yellow-500 pl-2 pr-1 cursor-pointer" />
             </div>
             {user ? (

@@ -8,7 +8,7 @@ const ErrorPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex flex-col items-center justify-center text-center bg-gradient-to-r from-yellow-300 to-yellow-100">
+      <main className="flex-grow flex flex-col items-center justify-center text-center ">
         <FaExclamationTriangle className="text-6xl text-red-600 mb-4" />
         <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
         <p className="text-lg mb-6">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
