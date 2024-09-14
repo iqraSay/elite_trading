@@ -101,10 +101,10 @@ const Header = () => {
         </div>
         <div className="hidden lg:flex space-x-6 justify-between items-center">
           <div className=" space-x-2 flex items-center">
-            <div className="relative focus:shadow-yellow-500 focus:shadow-lg bg-yellow-300 px-1 rounded-md">
+            {/* <div className="relative focus:shadow-yellow-500 focus:shadow-lg bg-yellow-300 px-1 rounded-md">
               <input type="text" placeholder="Search..." className="focus:outline-none w-32 p-2 bg-yellow-300 placeholder-brown-900"/>
               <FontAwesomeIcon icon={faSearch} className="text-yellow-500 pl-2 pr-1 cursor-pointer" />
-            </div>
+            </div> */}
             {user ? (
               <div className="relative">
                 <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">
@@ -185,12 +185,12 @@ const Header = () => {
             </div>
           )}
           <Link to="/categories" className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Categories</Link>
-          <div className="relative  w-full px-1 rounded-md flex lg:hidden bg-brown-900">
+          {/* <div className="relative  w-full px-1 rounded-md flex lg:hidden bg-brown-900">
             <input type="text" placeholder="Search..." className="focus:outline-none placeholder-yellow-300 w-full p-2 border-b text-yellow-500 bg-brown-900 border-b-3 border-b-yellow-500"/>
             <button className="text-yellow-500 p-2  cursor-pointer">
               <FontAwesomeIcon icon={faSearch} />
             </button>
-          </div>
+          </div> */}
 
         </div>
       )}
