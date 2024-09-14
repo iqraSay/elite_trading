@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import '../App.css';
+import '../../App.css';
 import { Link } from 'react-router-dom';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import ProductCard from '../components/ProductCard.jsx';
-import {products} from './Array.js';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import ProductCard from '../../components/ProductCard.jsx';
+import {products} from '../Array.js';
 
 
 

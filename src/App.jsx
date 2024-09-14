@@ -1,25 +1,25 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Shirts from './pages/Shirts';
-import Kurtis from './pages/Kurtis';
-import Hoodies from './pages/Hoodies';
-import Tshirts from './pages/Tshirts';
-import Gowns from './pages/Gowns';
-import Dresses from './pages/Dresses';
-import Suits from './pages/Suits';
-import Watches from './pages/Watches';
-import Shoes from './pages/Shoes';
-import Jewelry from './pages/Jewelry';
-import LoginPage from './pages/LoginPage';
-import Signup from './pages/Signup';
-import ForgotPassword from './pages/ForgotPassword';
-import Categories from './pages/Categories';
-import ErrorPage from './pages/ErrorPage';
-import ProductPage from './pages/ProductPage';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import AdminProductForm from './pages/AdminProductForm';
+import Home from './pages/UserSide/Home';
+import Shirts from './pages/UserSide/Shirts';
+import Kurtis from './pages/UserSide/Kurtis';
+import Hoodies from './pages/UserSide/Hoodies';
+import Tshirts from './pages/UserSide/Tshirts';
+import Gowns from './pages/UserSide/Gowns';
+import Dresses from './pages/UserSide/Dresses';
+import Suits from './pages/UserSide/Suits';
+import Watches from './pages/UserSide/Watches';
+import Shoes from './pages/UserSide/Shoes';
+import Jewelry from './pages/UserSide/Jewelry';
+import LoginPage from './pages/UserSide/LoginPage';
+import Signup from './pages/UserSide/Signup';
+import ForgotPassword from './pages/UserSide/ForgotPassword';
+import Categories from './pages/UserSide/Categories';
+import ErrorPage from './pages/UserSide/ErrorPage';
+import ProductPage from './pages/UserSide/ProductPage';
+import Cart from './pages/UserSide/Cart';
+import Checkout from './pages/UserSide/Checkout';
+import AdminProductForm from './pages/AdminSide/AdminProductForm';
 
 
 function App() {

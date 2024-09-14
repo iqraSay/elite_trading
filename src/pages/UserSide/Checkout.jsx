@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/navbar.jsx';
-import Footer from '../components/Footer.jsx';
-import { products } from '../pages/Array.js';
+import Header from '../../components/navbar.jsx';
+import Footer from '../../components/Footer.jsx';
+import { products } from '../Array.js';
 
 export default function Checkout() {
   const [formData, setFormData] = useState({
