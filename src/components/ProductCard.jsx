@@ -10,11 +10,14 @@ const ProductCard = ({ product }) => {
     <div className="p-2 slide-in">
       <div className="p-4 rounded shadow-lg shadow-neutral-500 bg-gradient-to-t from-yellow-100 flex flex-col items-center">
         <div className="relative w-full h-56 ">
+          <div className='lg:w-48 xl:w-full w-56 h-56 ml-auto mr-auto '>
+
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover rounded-lg"
-          />
+            />
+            </div>
           {/* <div className="absolute top-2 right-2 bg-yellow-500 text-white rounded-full px-2 py-1 text-sm font-bold">
             New
           </div> */}
