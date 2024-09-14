@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/eliteTradingLogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShoppingCart, faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { auth } from '../Firebase';
+import { signOut } from 'firebase/auth';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menDropdownOpen, setMenDropdownOpen] = useState(false);
   const [womenDropdownOpen, setWomenDropdownOpen] = useState(false);
   const [accessoriesDropdownOpen, setAccessoriesDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOut(auth);
+    setUser(null);
+    navigate('/');
+  };
+
+  const toggleDropdown = (setDropdownOpen) => {
+    setDropdownOpen((prev) => !prev);
   };
 
   const toggleMenDropdown = () => {
@@ -84,18 +105,52 @@ const Header = () => {
               <input type="text" placeholder="Search..." className="focus:outline-none w-32 p-2 bg-yellow-300"/>
               <FontAwesomeIcon icon={faSearch} className="text-yellow-500 pl-2 pr-1 cursor-pointer" />
             </div>
-            <Link to="/login" className='text-yellow-500  transition-colors duration-300 cursor-pointer rounded-md font-bold text-lg px-2 hover:text-yellow-100 '>Login
-              <FontAwesomeIcon icon={faUser} className=" pl-3 " />
-            </Link>
+            {user ? (
+              <div className="relative">
+                <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">
+                <FontAwesomeIcon icon={faUser}  />
+                <FontAwesomeIcon icon={faChevronDown} />
+                </button>
+                {userDropdownOpen && (
+                  <div className="absolute right-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+                    <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link>
+                    <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link>
+                    <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link>
+                    <button onClick={handleSignOut} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Logout</button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">Login
+                <FontAwesomeIcon icon={faUser} className="pl-3" />
+              </Link>
+            )}
             <Link to="/cart" className='text-yellow-500  transition-colors duration-300 cursor-pointer  font-bold text-lg px-2 hover:text-yellow-100 '>Cart
               <FontAwesomeIcon icon={faShoppingCart} className="pl-3" />
             </Link>
           </div>
         </div>
         <div className="lg:hidden flex items-center space-x-5">
+        {user ? (
+              <div className="relative">
+                <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">
+                <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
+                <FontAwesomeIcon icon={faChevronDown} />
+                </button>
+                {userDropdownOpen && (
+                  <div className="absolute right-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
+                    <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link>
+                    <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link>
+                    <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link>
+                    <button onClick={handleSignOut} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Logout</button>
+                  </div>
+                )}
+              </div>
+            ) : (
           <Link to="/login">
           <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
           </Link>
+            )}
           <Link to="/cart">
           <FontAwesomeIcon icon={faShoppingCart} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
           </Link>
@@ -136,6 +191,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
+
         </div>
       )}
     </div>
