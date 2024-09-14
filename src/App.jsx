@@ -17,6 +17,7 @@ import ForgotPassword from './pages/UserSide/ForgotPassword';
 import Categories from './pages/UserSide/Categories';
 import ErrorPage from './pages/UserSide/ErrorPage';
 import ProductPage from './pages/UserSide/ProductPage';
+import ProductDisplay from './pages/UserSide/ProductDisplay';
 import Cart from './pages/UserSide/Cart';
 import Checkout from './pages/UserSide/Checkout';
 import AdminProductForm from './pages/AdminSide/AdminProductForm';
@@ -43,6 +44,7 @@ function App() {
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
       <Route path='/categories' element ={<Categories/>} />
       <Route path='*' element ={<ErrorPage/>} />
+      <Route path="/productdisplay/:category" element={<ProductDisplay />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path='/cart' element ={<Cart/>} />
       <Route path='/AdminProductForm' element ={<AdminProductForm/>} />

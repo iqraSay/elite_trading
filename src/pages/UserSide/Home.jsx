@@ -4,6 +4,8 @@ import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import Featured from '../../components/Featured.jsx';
 import NewArrivals from '../../components/NewArrivals.jsx';
+import MayLike from '../../components/MayLike.jsx';
+import RelatedItems from '../../components/RelatedItems.jsx';
 import Sban from '../../assets/ShirtsBanner.png';
 import Hban from '../../assets/hoodiesBanner.webp';
 import Shban from '../../assets/ShoesBanner.png';
@@ -42,9 +44,9 @@ const Home = () => {
         <NewArrivals />
       </div>
       <Link to='/mensclothing/hoodies'><img src={Hban} alt="banner" className='w-full ' /></Link>
-      <NewArrivals/>
+      <RelatedItems/>
       <Link to='/accessories/watches'><img src={Wban} alt="banner" className='w-full ' /></Link>
-      <NewArrivals/>
+      <MayLike/>
       <Footer/>
     </div>
     )
