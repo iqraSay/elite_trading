@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
-import { products } from '../Array.js';
+import { firestore} from '../../Firebase.js';
+import { collection, getDocs} from 'firebase/firestore';
+// import { products } from '../Array.js';
 
 export default function Checkout() {
   const [formData, setFormData] = useState({
@@ -21,21 +23,59 @@ export default function Checkout() {
   const [errors, setErrors] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [products, setProducts] = useState([]); 
 
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+  //   const items = Object.keys(storedCartItems).map(id => {
+  //     const product = products.find(p => p.id === id);
+  //     if (product) {
+  //       return { ...product, quantity: storedCartItems[id] };
+  //     }
+  //     return null;
+  //   }).filter(item => item !== null);
+  //   setCartItems(items);
+  // }, []);
+
   useEffect(() => {
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
-    const items = Object.keys(storedCartItems).map(id => {
-      const product = products.find(p => p.id === id);
-      if (product) {
-        return { ...product, quantity: storedCartItems[id] };
+    const fetchProducts = async () => {
+      try {
+        const productsCollection = collection(firestore, 'products');
+        const productSnapshot = await getDocs(productsCollection);
+        const productList = productSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProducts(productList);
+      } catch (error) {
+        console.error("Error fetching products: ", error);
       }
-      return null;
-    }).filter(item => item !== null);
-    setCartItems(items);
+    };
+
+    fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const storedProduct = JSON.parse(localStorage.getItem('selectedProduct'));
+    if (storedProduct) {
+      // Handle case where a single product was stored in localStorage
+      const product = products.find(p => p.id === storedProduct.id);
+      if (product) {
+        setCartItems([{ ...product, quantity: 1 }]);
+        localStorage.removeItem('selectedProduct'); // Clean up single product
+      }
+    } else {
+      // Handle case where multiple items are stored in localStorage
+      const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+      const items = Object.keys(storedCartItems).map(id => {
+        const product = products.find(p => p.id === id);
+        if (product) {
+          return { ...product, quantity: storedCartItems[id] };
+        }
+        return null;
+      }).filter(item => item !== null);
+      setCartItems(items);
+    }
+  }, [products]);
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.originalPrice * item.quantity,
     0

@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { auth } from '../Firebase'; 
 
 const AddCart = ({ product }) => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const [cart, setCart] = useState(() => {
     const savedCart = JSON.parse(localStorage.getItem('cartItems')) || {};
     return savedCart;
   });
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleAddToCart = (id) => {
     setCart((prevCart) => {
@@ -37,6 +48,14 @@ const AddCart = ({ product }) => {
     });
   };
 
+  const handleClick = () => {
+    if (user) {
+      handleAddToCart(product.id);
+    } else {
+      navigate('/login'); 
+    }
+  };
+
   return (
     <div className="flex mt-4">
       {cart[product.id] ? (
@@ -57,7 +76,7 @@ const AddCart = ({ product }) => {
         </div>
       ) : (
         <button
-          onClick={() => handleAddToCart(product.id)}
+        onClick={handleClick}
           className="bg-brown-900 hover:bg-yellow-500 text-yellow-200 hover:text-brown-900 py-2 px-4 rounded-full font-bold flex items-center"
         >
           <FontAwesomeIcon icon={faCartPlus} className="mr-3" />
