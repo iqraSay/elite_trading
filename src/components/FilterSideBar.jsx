@@ -6,12 +6,12 @@ const FilterSidebar = ({ onFilterChange }) => {
   const [maxPrice, setMaxPrice] = useState('');
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
-  const [fabricType, setFabricType] = useState('');
+  const [material, setMaterial] = useState('');
   const [discount, setDiscount] = useState('');
 
 
   const handleFilterChange = () => {
-    onFilterChange({ minPrice, maxPrice, size, color, fabricType, discount });
+    onFilterChange({ minPrice, maxPrice, size, color, material, discount });
   };
 
   return (
@@ -68,13 +68,13 @@ const FilterSidebar = ({ onFilterChange }) => {
           />
         </div>
 
-        {/* Fabric Type Filter */}
+        {/* material Filter */}
         <div className="mb-4">
-          <label>Fabric Type:</label>
+          <label>Material:</label>
           <input
             type="text"
-            value={fabricType}
-            onChange={(e) => setFabricType(e.target.value)}
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
             className="w-full p-2 border border-brown-900 rounded"
           />
         </div>

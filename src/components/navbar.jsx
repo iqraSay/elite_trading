@@ -58,6 +58,24 @@ const Header = () => {
     navigate(user ? '/cart' : '/login');
   };
 
+  const handleClick = (dropdownType) => {
+    toggleMenu();
+    switch (dropdownType) {
+      case 'men':
+        toggleMenDropdown();
+        break;
+      case 'women':
+        toggleWomenDropdown();
+        break;
+      case 'accessories':
+        toggleAccessoriesDropdown();
+        break;
+      default:
+        console.log('No dropdown function called');
+    }
+  };
+
+
 
   return (
     <div>
@@ -168,26 +186,26 @@ const Header = () => {
            <button onClick={toggleMenDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Men's Outfits</button>
           {menDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
-              <Link to="/mensclothing/hoodies" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
-              <Link to="/mensclothing/tshirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">T-Shirts</Link>
-              <Link to="/mensclothing/shirts" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Shirts</Link>
-              <Link to="/mensclothing/footwear" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
+              <Link to="/productdisplay/Hoodie" onClick={() => handleClick('men')}  className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Hoodies</Link>
+              <Link to="/productdisplay/T-Shirt" onClick={() => handleClick('men')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">T-Shirts</Link>
+              <Link to="/productdisplay/Shirt" onClick={() => handleClick('men')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Shirts</Link>
+              <Link to="/productdisplay/Shoes" onClick={() => handleClick('men')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Footwear</Link>
             </div>
           )}
           <button onClick={toggleWomenDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Women's Outfits</button>
           {womenDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
-              <Link to="/womensclothing/dresses" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
-              <Link to="/womensclothing/gowns" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
-              <Link to="/womensclothing/kurtis" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
-              <Link to="/womensclothing/suits" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
+              <Link to="/productdisplay/Dress" onClick={() => handleClick('women')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Dresses</Link>
+              <Link to="/productdisplay/Gown" onClick={() => handleClick('women')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Gowns</Link>
+              <Link to="/productdisplay/Kurti" onClick={() => handleClick('women')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Kurtis</Link>
+              <Link to="/productdisplay/Suit" onClick={() => handleClick('women')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Suits</Link>
             </div>
           )}
           <button onClick={toggleAccessoriesDropdown} className="text-yellow-500 hover:bg-brown-900 hover:text-yellow-100  transition-colors duration-300">Accessories</button>
           {accessoriesDropdownOpen && (
             <div className="bg-yellow-100 z-50 rounded-lg shadow-lg p-2 w-full">
-              <Link to="/accessories/watches" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
-              <Link to="/accessories/jewelry" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
+              <Link to="/productdisplay/Watch" onClick={() => handleClick('accessories')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Watches</Link>
+              <Link to="/productdisplay/Jewelry" onClick={() => handleClick('accessories')} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Jewelry</Link>
             </div>
           )}
           <Link to="/categories" className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300">Categories</Link>

@@ -81,10 +81,10 @@ const ProductDisplay = () => {
         (!filters.maxPrice || effectivePrice <= filters.maxPrice);
       const matchesSize = !filters.size || product.size === filters.size;
       const matchesColor = !filters.color || product.color?.toLowerCase().includes(filters.color.toLowerCase());
-      const matchesFabricType = !filters.fabricType || product.fabricType?.toLowerCase().includes(filters.fabricType.toLowerCase());
+      const matchesMaterial = !filters.material || product.Material?.toLowerCase().includes(filters.material.toLowerCase());
       const matchesDiscount = !filters.discount || (product.originalPrice - product.offerPrice) / product.originalPrice * 100 >= parseInt(filters.discount);
 
-      return matchesPrice && matchesSize && matchesColor && matchesFabricType && matchesDiscount;
+      return matchesPrice && matchesSize && matchesColor && matchesMaterial && matchesDiscount;
     });
 
     setFilteredProducts(filtered);
