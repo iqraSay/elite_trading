@@ -1,24 +1,49 @@
 // src/pages/ProductDetails.jsx
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate,useParams, Link } from 'react-router-dom';
 import { products } from '../Array.js';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import SizeChart from '../../components/SizeChart.jsx';
 import AddCart from '../../components/AddCart.jsx';
+import { auth } from '../../Firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBill1Wave, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const ProductPage = () => {
+  const [user, setUser] = useState(null);
+  
+  const navigate = useNavigate(); 
   const { productId } = useParams();
   const product = products.find((p) => p.id === productId);
   const [mainImage, setMainImage] = useState(product.image);
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+
   if (!product) {
     return <div>Product not found</div>;
   }
+  const handleBuyNow = () => {
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+    navigate('/checkout'); 
+  };
+
+  const handleClick = () => {
+    if (user) {
+      handleBuyNow();
+    } else {
+      navigate('/login');
+    }
+  };
+
 
   const handleImageClick = (image) => {
     setMainImage(image);
@@ -61,7 +86,7 @@ const ProductPage = () => {
             <h2 className="text-2xl font-semibold text-center">{product.name}</h2>
             <div className="flex space-x-4 mt-2">
               <AddCart product={product} />
-              <button className="bg-brown-900 hover:text-brown-900 hover:bg-yellow-500 text-yellow-200 py-2 px-4 rounded-full font-bold flex items-center mt-4">
+              <button onClick={handleClick} className="bg-brown-900 hover:text-brown-900 hover:bg-yellow-500 text-yellow-200 py-2 px-4 rounded-full font-bold flex items-center mt-4">
                 <FontAwesomeIcon icon={faMoneyBill1Wave} className="mr-3" />
                 BUY NOW
               </button>
