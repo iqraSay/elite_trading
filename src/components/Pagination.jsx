@@ -62,7 +62,7 @@ const Pagination = ({ totalProducts, onSortChange, onFilterChange }) => {
           Sort By
         </button>
         {isDropdownOpen && (
-          <div className="absolute top-10 right-0 bg-yellow-100 shadow-lg p-2 rounded z-50">
+          <div className="absolute top-10 -right-5 bg-yellow-100 shadow-lg p-2 rounded z-50">
             {sortOptions.map((option) => (
               <button
                 key={option.value}
