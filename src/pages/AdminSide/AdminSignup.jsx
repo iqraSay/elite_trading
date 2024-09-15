@@ -4,14 +4,14 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, firestore } from '../../Firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import Header from '../../components/navbar.jsx';
-import './LoginPage.css';
+import '../UserSide/LoginPage.css';
 
-const Signup = () => {
-    const [username, setUsername] = useState('');
+const AdminSignup = () => {
+    const [adminName, setAdminName] = useState(''); 
     const [password, setPassword] = useState('');
     const [mobile, setMobile] = useState('');
     const [email, setEmail] = useState('');
-    const [errors, setErrors] = useState({ username: '', password: '', email: '', mobile: '' });
+    const [errors, setErrors] = useState({ adminName: '', password: '', email: '', mobile: '' });
     const [successMessage, setSuccessMessage] = useState('');
     const [firebaseError, setFirebaseError] = useState('');
     const navigate = useNavigate();
@@ -19,15 +19,15 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let valid = true;
-        const newErrors = { username: '', password: '', email: '', mobile: '' };
+        const newErrors = { adminName: '', password: '', email: '', mobile: '' };
 
         const validateEmail = (email) => {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         };
 
-        if (!username) {
-            newErrors.username = 'Please enter a username';
+        if (!adminName) { 
+            newErrors.adminName = 'Please enter an admin name';
             valid = false;
         }
 
@@ -50,20 +50,18 @@ const Signup = () => {
 
         if (valid) {
             try {
-                // Create user with Firebase Authentication
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // Add user data to Firestore
-                await setDoc(doc(firestore, 'users', user.uid), {
-                    username: username,
+                await setDoc(doc(firestore, 'admin', user.uid), { 
+                    adminName: adminName,
                     email: email,
                     mobile: mobile
                 });
 
                 setSuccessMessage('Signup successful!');
                 setTimeout(() => {
-                    navigate('/login');
+                    navigate('/');
                 }, 2000);
             } catch (error) {
                 setFirebaseError(error.message);
@@ -77,25 +75,24 @@ const Signup = () => {
         <main className="flex-grow flex items-center justify-center p-4">
           <div className="w-full max-w-md mx-auto bg-gradient-to-t from-[#ffffff] to-yellow-300 rounded-lg shadow-lg p-6 fade-in">
             <h2 className="text-3xl font-bold text-[#2a0000] mb-6 text-center">Sign Up</h2>
-            {successMessage && (
-              <div className="text-green-600 mb-4">{successMessage}</div>
-            )}
-            {firebaseError && (
-              <div className="text-red-600 mb-4">{firebaseError}</div>
-            )}
+            {firebaseError || successMessage ? (
+            <div className={`mb-4 ${firebaseError ? 'text-red-600' : 'text-green-600'}`}>
+              {firebaseError || successMessage}
+            </div>
+          ) : null}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Admin Name"
+                  value={adminName}
+                  onChange={(e) => setAdminName(e.target.value)}
                   onFocus={(e) => e.target.classList.add('focus')}
                   onBlur={(e) => e.target.classList.remove('focus')}
                   className="w-full p-3 border rounded-lg border-gray-300 transition-all"
                 />
-                {errors.username && (
-                  <div className="text-red-600 mt-1">{errors.username}</div>
+                {errors.adminName && (
+                  <div className="text-red-600 mt-1">{errors.adminName}</div> 
                 )}
               </div>
               <div className="relative">
@@ -145,7 +142,7 @@ const Signup = () => {
                 Sign Up
               </button>
               <div className="text-center">
-                <Link to="/login" className="text-[#2a0000] hover:underline">Have an account? Login!</Link>
+                <Link to="/adminlogin" className="text-[#2a0000] hover:underline">Back to Login</Link> 
               </div>
             </form>
           </div>
@@ -154,4 +151,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default AdminSignup;
