@@ -20,22 +20,20 @@ const LoginPage = () => {
     const newErrors = { usernameOrEmail: '', password: '' };
     let email = '';
 
-    // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!usernameOrEmail) {
       newErrors.usernameOrEmail = 'Please enter a valid username or email';
       valid = false;
     } else if (emailRegex.test(usernameOrEmail)) {
-      email = usernameOrEmail;  // If input is a valid email
+      email = usernameOrEmail;
     } else {
       try {
-        // If it's not an email, assume it's a username and fetch associated email
         const q = query(collection(firestore, 'users'), where('username', '==', usernameOrEmail));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
-          email = querySnapshot.docs[0].data().email;  // Get the associated email
+          email = querySnapshot.docs[0].data().email;
         } else {
           newErrors.usernameOrEmail = 'Username not found';
           valid = false;
@@ -60,12 +58,18 @@ const LoginPage = () => {
           // Successful login
           setSuccessMessage('Login successful!');
           setTimeout(() => {
-            navigate('/'); // Redirect to homepage or any other page
+            navigate('/'); 
           }, 2000);
         })
         .catch((error) => {
           // Handle login error
-          setFirebaseError(error.message);
+          if (error.code === 'auth/wrong-password') {
+            setFirebaseError('Incorrect password. Please try again.');
+          } else if (error.code === 'auth/user-not-found') {
+            setFirebaseError('No user found with this email.');
+          } else {
+            setFirebaseError('Error logging in. Please try again.');
+          }
         });
     }
   };
@@ -76,8 +80,11 @@ const LoginPage = () => {
       <main className="flex-grow flex items-center justify-center p-4">
         <div className="w-full max-w-md mx-auto bg-gradient-to-t from-[#ffffff] to-yellow-300 rounded-lg shadow-lg p-6 fade-in">
           <h2 className="text-3xl font-bold text-[#2a0000] mb-6 text-center">Login</h2>
-          {successMessage && <div className="text-green-600 mb-4">{successMessage}</div>}
-          {firebaseError && <div className="text-red-600 mb-4">{firebaseError}</div>}
+          {firebaseError || successMessage ? (
+            <div className={`mb-4 ${firebaseError ? 'text-red-600' : 'text-green-600'}`}>
+              {firebaseError || successMessage}
+            </div>
+          ) : null}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
               <input

@@ -54,6 +54,11 @@ const Header = () => {
     setWomenDropdownOpen(false);
   };
 
+  const handleCartClick = () => {
+    navigate(user ? '/cart' : '/login');
+  };
+
+
   return (
     <div>
       <nav className="flex items-center justify-between px-5 bg-brown-900">
@@ -125,9 +130,10 @@ const Header = () => {
                 <FontAwesomeIcon icon={faUser} className="pl-3" />
               </Link>
             )}
-            <Link to="/cart" className='text-yellow-500  transition-colors duration-300 cursor-pointer  font-bold text-lg px-2 hover:text-yellow-100 '>Cart
-              <FontAwesomeIcon icon={faShoppingCart} className="pl-3" />
-            </Link>
+            <button onClick={handleCartClick} className='text-yellow-500 transition-colors duration-300 cursor-pointer font-bold text-lg px-2 hover:text-yellow-100'>
+            Cart
+            <FontAwesomeIcon icon={faShoppingCart} className="pl-3" />
+          </button>
           </div>
         </div>
         <div className="lg:hidden flex items-center space-x-5">
@@ -151,9 +157,9 @@ const Header = () => {
           <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
           </Link>
             )}
-          <Link to="/cart">
-          <FontAwesomeIcon icon={faShoppingCart} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
-          </Link>
+          <button onClick={handleCartClick}>
+            <FontAwesomeIcon icon={faShoppingCart} className="text-yellow-500 hover:text-yellow-100 transition-colors duration-300 cursor-pointer" />
+          </button>
           <button className="text-3xl text-yellow-500" onClick={toggleMenu}>☰</button>
         </div>
       </nav>
