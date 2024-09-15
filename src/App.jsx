@@ -21,6 +21,8 @@ import ProductDisplay from './pages/UserSide/ProductDisplay';
 import Cart from './pages/UserSide/Cart';
 import Checkout from './pages/UserSide/Checkout';
 import AdminProductForm from './pages/AdminSide/AdminProductForm';
+import AdminSignup from './pages/AdminSide/AdminSignup';
+import AdminLogin from './pages/AdminSide/AdminLogin';
 
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path='/cart' element ={<Cart/>} />
       <Route path='/AdminProductForm' element ={<AdminProductForm/>} />
+      <Route path='/AdminSignup' element ={<AdminSignup/>} />
+      <Route path='/AdminLogin' element ={<AdminLogin/>} />
       </Routes>
     </div>
   );
