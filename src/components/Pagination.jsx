@@ -10,7 +10,7 @@ const Pagination = ({ totalProducts, onSortChange, onFilterChange }) => {
     { label: 'Popularity', value: 'popularity' },
     { label: 'Price: Low to High', value: 'priceLowToHigh' },
     { label: 'Price: High to Low', value: 'priceHighToLow' },
-    { label: 'Newest First', value: 'newest' },
+    // { label: 'Newest First', value: 'newest' },
   ];
 
   const handleSortChange = (sort) => {

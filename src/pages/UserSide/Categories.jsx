@@ -12,7 +12,7 @@ const Categories = () => {
         
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-[#2a0000]">Mens</h2>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
               <Link to="/productdisplay/Shirt" className="bg-gradient-to-t from-yellow-200 p-4 rounded-lg shadow-lg transition-transform transform hover:scale-90">
                 <img src='https://firebasestorage.googleapis.com/v0/b/elitetrading-72e.appspot.com/o/products%2FdemoShirt.png?alt=media&token=053b1389-597c-46ae-b78c-c398f1f10f6c' alt="Shirts" className="w-full h-auto rounded-md" />
                 <p className="text-center text-xl mt-2">Shirts</p>
@@ -34,7 +34,7 @@ const Categories = () => {
         
           <div className="mb-8">
             <h2 className="text-2xl font-semibold text-[#2a0000]">Womens</h2>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
             <Link to="/productdisplay/Dress" className="bg-gradient-to-t from-yellow-200 p-4 rounded-lg shadow-lg transition-transform transform hover:scale-90">
                 <img src='https://firebasestorage.googleapis.com/v0/b/elitetrading-72e.appspot.com/o/products%2FdemoDress.png?alt=media&token=076cf605-4ede-4a83-8988-7111e801295c' alt="Dresses" className="w-full h-auto rounded-md" />
                 <p className="text-center text-xl mt-2">Dresses</p>
@@ -56,7 +56,7 @@ const Categories = () => {
         
           <div>
             <h2 className="text-2xl font-semibold text-[#2a0000]">Accessories</h2>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
               <Link to="/productdisplay/Watch" className="bg-gradient-to-t from-yellow-200 p-4 rounded-lg shadow-lg transition-transform transform hover:scale-90">
                 <img src='https://firebasestorage.googleapis.com/v0/b/elitetrading-72e.appspot.com/o/products%2FdemoWatch.jpeg?alt=media&token=51b18e93-f30c-49df-927a-ed15f4faf5f1' alt="Watches" className="w-full h-auto rounded-md" />
                 <p className="text-center text-xl mt-2">Watches</p>
