@@ -25,6 +25,8 @@ import AdminSignup from './pages/AdminSide/AdminSignup';
 import AdminLogin from './pages/AdminSide/AdminLogin';
 import Dashboard from './pages/AdminSide/Dashboard';
 import ProductList from './pages/AdminSide/ProductList';
+import UserManager from './pages/AdminSide/UserManager';
+import CategoryManager from './pages/AdminSide/CategoryManager';
 
 
 function App() {
@@ -56,6 +58,8 @@ function App() {
       <Route path='/AdminLogin' element ={<AdminLogin/>} />
       <Route path='/Dashboard' element ={<Dashboard/>} />
       <Route path='/ProductList' element ={<ProductList/>} />
+      <Route path='/UserManager' element ={<UserManager/>} />
+      <Route path='/CategoryManager' element ={<CategoryManager/>} />
       </Routes>
     </div>
   );
