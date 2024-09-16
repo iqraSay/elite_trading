@@ -65,18 +65,18 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div>
+    <div className='bg-gray-100 w-1/5 text-2xl'>
       {/* Hamburger Button for medium screens */}
       <button
-        className="md:hidden p-2 text-white bg-brown-900"
+        className="md:hidden p-2 text-brown-900"
         onClick={toggleSidebar}
       >
-        <FontAwesomeIcon icon={faBars} />
+        <FontAwesomeIcon icon={faBars} className=' md:h-12 md:w-12' />
       </button>
 
       {/* Sidebar - sliding effect on medium screens */}
       <div
-        className={`fixed top-0 left-0 h-full bg-brown-900 text-white p-4 transform ${
+        className={`fixed top-0 left-0 h-full bg-brown-900 text-white px-12 py-6 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 md:static transition-transform duration-300 ease-in-out`}
       >
@@ -91,7 +91,7 @@ const AdminSidebar = () => {
         <div className="flex items-center mb-6">
           <img src={logo} alt="Admin Avatar" className="w-36 h-36 rounded-full mr-2" />
         </div>
-          <span className="text-lg font-semibold">Hello, {adminName}</span>
+          <span className="lg:text-3xl  font-semibold">Hello, {adminName}</span>
 
         <nav className="flex flex-col space-y-2">
           <Link
@@ -106,15 +106,15 @@ const AdminSidebar = () => {
             <span className="ml-2">Dashboard</span>
           </Link>
           <Link
-            to="/admin/customers"
+            to="/ProductList"
             className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/customers'
+              location.pathname === '/ProductList'
                 ? 'bg-yellow-200 text-brown-900'
                 : 'hover:bg-yellow-500 hover:text-brown-900'
             }`}
           >
-            <FontAwesomeIcon icon={faUsers} />
-            <span className="ml-2">Customers</span>
+            <FontAwesomeIcon icon={faBoxes} />
+            <span className="ml-2">Products</span>
           </Link>
           <Link
             to="/admin/category"
@@ -128,6 +128,17 @@ const AdminSidebar = () => {
             <span className="ml-2">Category</span>
           </Link>
           <Link
+            to="/admin/customers"
+            className={`flex items-center p-2 rounded ${
+              location.pathname === '/admin/customers'
+                ? 'bg-yellow-200 text-brown-900'
+                : 'hover:bg-yellow-500 hover:text-brown-900'
+            }`}
+          >
+            <FontAwesomeIcon icon={faUsers} />
+            <span className="ml-2">Customers</span>
+          </Link>
+          <Link
             to="/admin/shipment"
             className={`flex items-center p-2 rounded ${
               location.pathname === '/admin/shipment'
@@ -137,17 +148,6 @@ const AdminSidebar = () => {
           >
             <FontAwesomeIcon icon={faShippingFast} />
             <span className="ml-2">Shipment</span>
-          </Link>
-          <Link
-            to="/admin/products"
-            className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/products'
-                ? 'bg-yellow-200 text-brown-900'
-                : 'hover:bg-yellow-500 hover:text-brown-900'
-            }`}
-          >
-            <FontAwesomeIcon icon={faBoxes} />
-            <span className="ml-2">Products</span>
           </Link>
           <Link
             to="/admin/orders"
