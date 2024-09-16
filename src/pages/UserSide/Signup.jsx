@@ -58,7 +58,8 @@ const Signup = () => {
                 await setDoc(doc(firestore, 'users', user.uid), {
                     username: username,
                     email: email,
-                    mobile: mobile
+                    mobile: mobile,
+                    role: 'user'
                 });
 
                 setSuccessMessage('Signup successful!');
