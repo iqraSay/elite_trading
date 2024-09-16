@@ -7,11 +7,11 @@ import { faBars, faTimes, faDashboard, faUsers, faBoxes, faShippingFast, faTags,
 import logo from '../../assets/eliteTradingLogo.png';
 
 const AdminSidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // State for sidebar visibility
-  const [adminName, setAdminName] = useState(''); // State for admin name
-  const [user, setUser] = useState(null); // State for current user
+  const [isOpen, setIsOpen] = useState(false);
+  const [adminName, setAdminName] = useState('');
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation(); // Get current route location
+  const location = useLocation();
   const auth = getAuth();
   const firestore = getFirestore();
 
@@ -20,15 +20,13 @@ const AdminSidebar = () => {
     const fetchAdminName = async () => {
         if (user) {
           try {
-            // Query for the document with a field matching the current user's email or other unique identifier
             const adminCollection = collection(firestore, 'admin');
             const q = query(adminCollection, where('email', '==', user.email));
             const querySnapshot = await getDocs(q);
   
             if (!querySnapshot.empty) {
-              // Assuming there is only one document matching the query
               const adminDoc = querySnapshot.docs[0].data();
-              setAdminName(adminDoc.adminName); // Adjust field name as per your Firestore structure
+              setAdminName(adminDoc.adminName);
             } else {
               console.error(`No such admin document for email: ${user.email}`);
             }
@@ -52,14 +50,13 @@ const AdminSidebar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        navigate('/adminlogin'); // Redirect to AdminLogin after logging out
+        navigate('/adminlogin');
       })
       .catch((error) => {
         console.error('Error during logout:', error);
       });
   };
 
-  // Function to toggle sidebar open/close
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -74,9 +71,9 @@ const AdminSidebar = () => {
         <FontAwesomeIcon icon={faBars} className=' md:h-12 md:w-12' />
       </button>
 
-      {/* Sidebar - sliding effect on medium screens */}
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-brown-900 text-white px-12 py-6 transform ${
+        className={`fixed top-0 left-0 h-full bg-brown-900 z-10 text-white px-12 py-6 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 md:static transition-transform duration-300 ease-in-out`}
       >
@@ -97,7 +94,7 @@ const AdminSidebar = () => {
           <Link
             to="/Dashboard"
             className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/dashboard'
+              location.pathname === '/Dashboard'
                 ? 'bg-yellow-200 text-brown-900'
                 : 'hover:bg-yellow-500 hover:text-brown-900'
             }`}
@@ -117,9 +114,9 @@ const AdminSidebar = () => {
             <span className="ml-2">Products</span>
           </Link>
           <Link
-            to="/admin/category"
+            to="/CategoryManager"
             className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/category'
+              location.pathname === '/CategoryManager'
                 ? 'bg-yellow-200 text-brown-900'
                 : 'hover:bg-yellow-500 hover:text-brown-900'
             }`}
@@ -128,9 +125,9 @@ const AdminSidebar = () => {
             <span className="ml-2">Category</span>
           </Link>
           <Link
-            to="/admin/customers"
+            to="/UserManager"
             className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/customers'
+              location.pathname === '/UserManager'
                 ? 'bg-yellow-200 text-brown-900'
                 : 'hover:bg-yellow-500 hover:text-brown-900'
             }`}
