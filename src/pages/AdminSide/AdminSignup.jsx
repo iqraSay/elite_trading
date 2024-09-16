@@ -56,7 +56,8 @@ const AdminSignup = () => {
                 await setDoc(doc(firestore, 'admin', user.uid), { 
                     adminName: adminName,
                     email: email,
-                    mobile: mobile
+                    mobile: mobile,
+                    role: 'admin'
                 });
 
                 setSuccessMessage('Signup successful!');

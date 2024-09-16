@@ -56,7 +56,7 @@ const AdminLoginPage = () => {
         .then((userCredential) => {
           setSuccessMessage('Login successful!');
           setTimeout(() => {
-            navigate('/'); 
+            navigate('/Dashboard'); 
           }, 2000);
         })
         .catch((error) => {
