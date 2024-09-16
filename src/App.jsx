@@ -24,6 +24,7 @@ import AdminProductForm from './pages/AdminSide/AdminProductForm';
 import AdminSignup from './pages/AdminSide/AdminSignup';
 import AdminLogin from './pages/AdminSide/AdminLogin';
 import Dashboard from './pages/AdminSide/Dashboard';
+import ProductList from './pages/AdminSide/ProductList';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
       <Route path='/AdminSignup' element ={<AdminSignup/>} />
       <Route path='/AdminLogin' element ={<AdminLogin/>} />
       <Route path='/Dashboard' element ={<Dashboard/>} />
+      <Route path='/ProductList' element ={<ProductList/>} />
       </Routes>
     </div>
   );
