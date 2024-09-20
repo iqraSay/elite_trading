@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/eliteTradingLogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { auth } from '../Firebase';
-import { signOut } from 'firebase/auth';
+import { firestore, auth } from '../Firebase';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { collection, getDocs,  query, where} from 'firebase/firestore';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,12 +14,29 @@ const Header = () => {
   const [accessoriesDropdownOpen, setAccessoriesDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Set the logged-in user's info
+
+        // Fetch username from Firestore users collection
+        const usersRef = collection(firestore, 'users');
+        const userQuery = query(usersRef, where('email', '==', currentUser.email));
+        const userSnapshot = await getDocs(userQuery);
+
+        if (!userSnapshot.empty) {
+          // Assuming there's only one document with the matching email
+          const userDoc = userSnapshot.docs[0];
+          setUsername(userDoc.data().username); // Set the username
+        } else {
+          console.error('No matching user found with the email.');
+        }
+      }
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -131,8 +149,8 @@ const Header = () => {
             {user ? (
               <div className="relative">
                 <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">
-                <FontAwesomeIcon icon={faUser}  />
-                <FontAwesomeIcon icon={faChevronDown} />
+                {/* <FontAwesomeIcon icon={faUser}  /> */}
+                {username}<FontAwesomeIcon icon={faChevronDown} />
                 </button>
                 {userDropdownOpen && (
                   <div className="absolute right-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
@@ -157,8 +175,8 @@ const Header = () => {
         <div className="lg:hidden flex items-center space-x-5">
         {user ? (
               <div className="relative">
-                <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">
-                <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" />
+                <button onClick={() => toggleDropdown(setUserDropdownOpen)} className="text-yellow-500 font-bold text-lg hover:text-yellow-100 transition-colors duration-300">{username}
+                {/* <FontAwesomeIcon icon={faUser} className="text-yellow-500 hover:text-yellow-100  transition-colors duration-300 cursor-pointer" /> */}
                 <FontAwesomeIcon icon={faChevronDown} />
                 </button>
                 {userDropdownOpen && (

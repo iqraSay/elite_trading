@@ -147,9 +147,9 @@ const AdminSidebar = () => {
             <span className="ml-2">Shipment</span>
           </Link>
           <Link
-            to="/admin/orders"
+            to="/Orders"
             className={`flex items-center p-2 rounded ${
-              location.pathname === '/admin/orders'
+              location.pathname === '/Orders'
                 ? 'bg-yellow-200 text-brown-900'
                 : 'hover:bg-yellow-500 hover:text-brown-900'
             }`}

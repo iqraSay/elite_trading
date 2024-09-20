@@ -28,6 +28,7 @@ import ProductList from './pages/AdminSide/ProductList';
 import UserManager from './pages/AdminSide/UserManager';
 import CategoryManager from './pages/AdminSide/CategoryManager';
 import Shipment from './pages/AdminSide/Shipment';
+import Orders from './pages/AdminSide/Orders';
 
 
 
@@ -63,6 +64,7 @@ function App() {
       <Route path='/UserManager' element ={<UserManager/>} />
       <Route path='/CategoryManager' element ={<CategoryManager/>} />
       <Route path='/Shipment' element ={<Shipment/>} />
+      <Route path='/Orders' element ={<Orders/>} />
       </Routes>
     </div>
   );
