@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
-import { firestore} from '../../Firebase.js';
-import { collection, getDocs} from 'firebase/firestore';
+import { firestore, auth} from '../../Firebase.js';
+import { collection, getDocs, addDoc, doc, getDoc, updateDoc, serverTimestamp, query, where } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 // import { products } from '../Array.js';
 
 export default function Checkout() {
@@ -24,6 +25,8 @@ export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [products, setProducts] = useState([]); 
+  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(""); // Store username
 
   const navigate = useNavigate();
 
@@ -38,6 +41,30 @@ export default function Checkout() {
   //   }).filter(item => item !== null);
   //   setCartItems(items);
   // }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Set the logged-in user's info
+
+        // Fetch username from Firestore users collection
+        const usersRef = collection(firestore, 'users');
+        const userQuery = query(usersRef, where('email', '==', currentUser.email));
+        const userSnapshot = await getDocs(userQuery);
+
+        if (!userSnapshot.empty) {
+          // Assuming there's only one document with the matching email
+          const userDoc = userSnapshot.docs[0];
+          setUsername(userDoc.data().username); // Set the username
+        } else {
+          console.error('No matching user found with the email.');
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -105,18 +132,50 @@ export default function Checkout() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-        setCartItems([]);
-      localStorage.removeItem('cartItems');
-      setOrderPlaced(true);
-      setTimeout(() => {
-        navigate('/');
-      }, 10000);
+    if (!user) {
+      alert('Please log in to place an order.');
+      return;
     }
-    
+
+    if (validateForm()) {
+      try {
+        // Generate order document ID: "order srno followed by date and month"
+        const date = new Date();
+        const orderID = `order-${cartItems.length}-${date.getDate()}${date.getMonth() + 1}`;
+
+        const orderData = {
+          userID: user.uid, // User's ID
+          username: user.email, // Assuming email is used as the username
+          ...formData,
+          cartItems,
+          orderTotal,
+          shippingRate,
+          subtotal,
+          date: serverTimestamp(), // Store Firestore server timestamp for order time
+        };
+
+        // Reference to the global 'orders' collection
+        const ordersCollectionRef = collection(firestore, 'orders');
+        
+        // Add the order to the orders collection
+        await addDoc(ordersCollectionRef, { ...orderData, orderID });
+
+        setCartItems([]);
+        localStorage.removeItem('cartItems');
+        setOrderPlaced(true);
+
+        setTimeout(() => {
+          navigate('/');
+        }, 10000);
+
+      } catch (error) {
+        console.error('Error placing order:', error);
+      }
+    }
   };
+
 
   if (orderPlaced) {
     return (
