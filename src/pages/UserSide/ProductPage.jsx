@@ -8,7 +8,7 @@ import SizeChart from '../../components/SizeChart.jsx';
 import AddCart from '../../components/AddCart.jsx';
 import { auth } from '../../Firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoneyBill1Wave, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 
 const ProductPage = () => {
   const [user, setUser] = useState(null);
@@ -80,9 +80,9 @@ const ProductPage = () => {
               </div>
               <div className="relative">
                 <img src={mainImage} alt="Product Main" className="w-full h-auto rounded-lg" />
-                <button onClick={toggleWishlist} className={`absolute top-2 right-2 hover:bg-transparent text-${isWishlisted ? 'red-600' : 'slate-400'}`}>
+                {/* <button onClick={toggleWishlist} className={`absolute top-2 right-2 hover:bg-transparent text-${isWishlisted ? 'red-600' : 'slate-400'}`}>
                   <FontAwesomeIcon icon={faHeart} size="2x" />
-                </button>
+                </button> */}
             <h2 className="text-2xl font-semibold text-center">{product.name}</h2>
             <div className="flex space-x-4 mt-2">
               <AddCart product={product} />

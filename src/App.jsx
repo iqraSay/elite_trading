@@ -12,7 +12,6 @@ import Watches from './pages/UserSide/Watches';
 import Shoes from './pages/UserSide/Shoes';
 import Jewelry from './pages/UserSide/Jewelry';
 import LoginPage from './pages/UserSide/LoginPage';
-import WishList from './pages/UserSide/WishList';
 import Signup from './pages/UserSide/Signup';
 import ForgotPassword from './pages/UserSide/ForgotPassword';
 import Categories from './pages/UserSide/Categories';
@@ -52,7 +51,6 @@ function App() {
       <Route path='/signup' element ={<Signup/>} />
       <Route path='/forgotpassword' element ={<ForgotPassword/>} />
       <Route path='/categories' element ={<Categories/>} />
-      <Route path='/WishList' element ={<WishList/>} />
       <Route path='*' element ={<ErrorPage/>} />
       <Route path="/productdisplay/:category" element={<ProductDisplay />} />
       <Route path="/product/:productId" element={<ProductPage />} />
