@@ -136,9 +136,9 @@ const Header = () => {
                 </button>
                 {userDropdownOpen && (
                   <div className="absolute right-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
-                    <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link>
-                    <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link>
-                    <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link>
+                    {/* <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link> */}
+                    {/* <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link> */}
+                    {/* <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link> */}
                     <button onClick={handleSignOut} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Logout</button>
                   </div>
                 )}
@@ -163,9 +163,9 @@ const Header = () => {
                 </button>
                 {userDropdownOpen && (
                   <div className="absolute right-0 bg-yellow-100 z-50 rounded-lg shadow-lg p-2">
-                    <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link>
-                    <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link>
-                    <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link>
+                    {/* <Link to="/orders" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Order History</Link> */}
+                    {/* <Link to="/wishlist" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Wishlist</Link> */}
+                    {/* <Link to="/profile" className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Profile</Link> */}
                     <button onClick={handleSignOut} className="block text-brown-900 hover:bg-yellow-200 p-2 rounded">Logout</button>
                   </div>
                 )}
