@@ -26,35 +26,26 @@ const Shipment = () => {
   const fetchShipments = async () => {
     setLoading(true);
     try {
-      const filtersArray = [];
-  
-      if (filters.shipmentID) {
-        filtersArray.push(where('shipmentID', '==', filters.shipmentID));
+        const q = query(collection(firestore, 'shipments'));
+        const querySnapshot = await getDocs(q);
+        const allShipmentsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    
+        // Apply local filtering
+        const filteredShipments = allShipmentsData.filter(shipment => {
+          return (
+            (filters.shipmentID === '' || shipment.shipmentID.toString().toLowerCase().includes(filters.shipmentID.toLowerCase())) &&
+        (filters.orderID === '' || shipment.orderID.toString().toLowerCase().includes(filters.orderID.toLowerCase())) &&
+       (filters.vendorName === '' || shipment.vendorName?.toLowerCase().includes(filters.vendorName.toLowerCase())) &&
+            (filters.shipmentStatus === 'All' || shipment.shipmentStatus === filters.shipmentStatus)
+          );
+        });
+    
+        setShipments(filteredShipments);
+      } catch (error) {
+        console.error("Error fetching shipments:", error);
+      } finally {
+        setLoading(false);
       }
-      if (filters.orderID) {
-        filtersArray.push(where('orderID', '==', filters.orderID));
-      }
-      if (filters.vendorName) {
-        filtersArray.push(where('vendorName', '==', filters.vendorName));
-      }
-      if (filters.shipmentStatus && filters.shipmentStatus !== 'All') {
-        filtersArray.push(where('shipmentStatus', '==', filters.shipmentStatus));
-      }
-  
-      console.log("Filters applied:", filtersArray);
-  
-      const q = query(collection(firestore, 'shipments'), ...filtersArray);
-      console.log("Firestore query:", q);
-  
-      const querySnapshot = await getDocs(q);
-      const shipmentsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      
-      setShipments(shipmentsData);
-    } catch (error) {
-      console.error("Error fetching shipments:", error);
-    } finally {
-      setLoading(false);
-    }
   };
   
 
@@ -68,20 +59,20 @@ const Shipment = () => {
 
   const handleEdit = (id) => {
     setSelectedShipmentId(id);
-    setEditModalOpen(true); // Open modal when edit button is clicked
+    setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
     setEditModalOpen(false);
-    setSelectedShipmentId(null); // Reset selected shipment
+    setSelectedShipmentId(null);
   };
 
   const openAddModal = () => {
-    setAddModalOpen(true); // Open add modal
+    setAddModalOpen(true);
   };
 
   const closeAddModal = () => {
-    setAddModalOpen(false); // Close add modal
+    setAddModalOpen(false); 
   };
 
 
@@ -102,7 +93,7 @@ const Shipment = () => {
       <div className="flex space-x-4 mb-4">
       <button
           className="bg-brown-900 text-yellow-200 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 transition duration-300"
-          onClick={openAddModal} // This triggers the modal to open
+          onClick={openAddModal}
         >
           Add Shipment
         </button>
@@ -141,7 +132,6 @@ const Shipment = () => {
           <option value="Shipped">Shipped</option>
           <option value="Delivered">Delivered</option>
         </select>
-         {/* Add Shipment Modal */}
       
       </div>
 
