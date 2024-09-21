@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { firestore, getCategory } from '../../Firebase';
-import {collection, addDoc, getDocs } from 'firebase/firestore';
-import AdminSidebar from './AdminSidebar';
+import React, { useState, useEffect } from "react";
+import { firestore, getCategory } from "../../Firebase";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import AdminSidebar from "./AdminSidebar";
 
 const CategoryManager = () => {
   const [filteredCategories, setFilteredCategories] = useState([]);
-  const [categoryTypeFilter, setCategoryTypeFilter] = useState('');
+  const [categoryTypeFilter, setCategoryTypeFilter] = useState("");
   const [categories, setCategories] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [category, setCategory] = useState('');
-  const [categoryType, setCategoryType] = useState('');
-
+  const [category, setCategory] = useState("");
+  const [categoryType, setCategoryType] = useState("");
 
   const fetchCategories = async () => {
     try {
-      const querySnapshot = await getDocs(collection(firestore, 'categories'));
-      const fetchedCategories = querySnapshot.docs.map(doc => ({
+      const querySnapshot = await getDocs(collection(firestore, "categories"));
+      const fetchedCategories = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
       setCategories(fetchedCategories);
       setFilteredCategories(fetchedCategories);
@@ -25,18 +24,21 @@ const CategoryManager = () => {
       console.error("Error fetching categories: ", error);
     }
   };
-  
+
   useEffect(() => {
     fetchCategories();
   }, []);
-  
+
   // Handle form submission
   const handleSubmit = async () => {
     if (category && categoryType) {
       try {
-        await addDoc(collection(firestore, 'categories'), { category, categoryType });
-        setCategory('');
-        setCategoryType('');
+        await addDoc(collection(firestore, "categories"), {
+          category,
+          categoryType,
+        });
+        setCategory("");
+        setCategoryType("");
         setShowPopup(false);
         fetchCategories(); // Fetch the updated list of categories
       } catch (error) {
@@ -44,13 +46,12 @@ const CategoryManager = () => {
       }
     }
   };
-  
 
   useEffect(() => {
-    getCategory().then(fetchedCategory => {
-      const sanitizedCategory = fetchedCategory.map(cat => ({
-        category: cat.category || '',
-        categoryType: cat.categoryType || ''
+    getCategory().then((fetchedCategory) => {
+      const sanitizedCategory = fetchedCategory.map((cat) => ({
+        category: cat.category || "",
+        categoryType: cat.categoryType || "",
       }));
       setCategories(sanitizedCategory);
       setFilteredCategories(sanitizedCategory);
@@ -58,7 +59,7 @@ const CategoryManager = () => {
   }, []);
 
   useEffect(() => {
-    const filtered = categories.filter(cat => 
+    const filtered = categories.filter((cat) =>
       cat.categoryType.toLowerCase().includes(categoryTypeFilter.toLowerCase())
     );
     setFilteredCategories(filtered);
@@ -68,7 +69,7 @@ const CategoryManager = () => {
     <div className="flex">
       {/* AdminSidebar should be defined elsewhere in your project */}
       <AdminSidebar />
-      <div className="flex-1 bg-gray-100 p-8 text-brown-900 h-screen">
+      <div className="flex-1  p-8 text-brown-900 h-screen">
         <h1 className="text-2xl font-bold mb-4">Category Manager</h1>
         <div className="mb-4">
           <input
@@ -86,8 +87,9 @@ const CategoryManager = () => {
           </button>
         </div>
 
+        <div className="overflow-x-auto shadow-2xl">
           <table className="min-w-full bg-gradient-to-br from-white to-yellow-200 text-brown-900 rounded-lg shadow-2xl text-center">
-            <thead className='bg-brown-900 text-yellow-500 h-12 text-xl'>
+            <thead className="bg-brown-900 text-yellow-500 h-12 text-xl">
               <tr>
                 <th className="py-2 px-4 rounded-tl-3xl">Sr. No</th>
                 <th className="py-2 px-4">Category</th>
@@ -104,7 +106,7 @@ const CategoryManager = () => {
               ))}
             </tbody>
           </table>
-        
+        </div>
 
         {showPopup && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
