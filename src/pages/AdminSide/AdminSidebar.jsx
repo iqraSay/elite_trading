@@ -136,17 +136,6 @@ const AdminSidebar = () => {
             <span className="ml-2">Customers</span>
           </Link>
           <Link
-            to="/Shipment"
-            className={`flex items-center p-2 rounded ${
-              location.pathname === '/Shipment'
-                ? 'bg-yellow-200 text-brown-900'
-                : 'hover:bg-yellow-500 hover:text-brown-900'
-            }`}
-          >
-            <FontAwesomeIcon icon={faShippingFast} />
-            <span className="ml-2">Shipment</span>
-          </Link>
-          <Link
             to="/Orders"
             className={`flex items-center p-2 rounded ${
               location.pathname === '/Orders'
@@ -156,6 +145,17 @@ const AdminSidebar = () => {
           >
             <FontAwesomeIcon icon={faClipboardList} />
             <span className="ml-2">Orders</span>
+          </Link>
+          <Link
+            to="/Shipment"
+            className={`flex items-center p-2 rounded ${
+              location.pathname === '/Shipment'
+                ? 'bg-yellow-200 text-brown-900'
+                : 'hover:bg-yellow-500 hover:text-brown-900'
+            }`}
+          >
+            <FontAwesomeIcon icon={faShippingFast} />
+            <span className="ml-2">Shipment</span>
           </Link>
           <button
             onClick={handleLogout}

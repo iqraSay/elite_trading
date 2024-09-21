@@ -1,37 +1,77 @@
 import React, { useState, useEffect } from "react";
-import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";
+import { onSnapshot, collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../Firebase"; // Make sure your Firebase setup is correctly configured
 import AdminSidebar from "./AdminSidebar"; // Import your Sidebar component
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState({
-    dateRange: "",
+    orderID: "",
     customerName: "",
-    orderTotal: "",
+    country: "",
     status: "",
-    itemCount: ""
   });
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(firestore, "orders"), (snapshot) => {
-      setOrders(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const fetchedOrders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      
+      // Replace null values with '-'
+      const sanitizedOrders = fetchedOrders.map(order => {
+        return {
+          ...order,
+          orderID: order.orderID || '-',
+          firstName: order.firstName || '-',
+          lastName: order.lastName || '-',
+          phone: order.phone || '-',
+          address: order.address || '-',
+          state: order.state || '-',
+          country: order.country || '-',
+          subtotal: order.subtotal || '-',
+          shippingRate: order.shippingRate || '-',
+          orderTotal: order.orderTotal || '-',
+          orderDate: order.orderDate || '-',
+          totalItems: order.totalItems || '-',
+          status: order.status || '-'
+        };
+      });
+
+      setOrders(sanitizedOrders);
     });
     return () => unsubscribe();
   }, []);
+
+  const handleUpdateStatus = async (orderId, newStatus) => {
+    const orderRef = doc(firestore, "orders", orderId);
+    await updateDoc(orderRef, { status: newStatus });
+  };
 
   const handleDelete = async (orderId) => {
     if (window.confirm("Are you sure you want to delete this order?")) {
       await deleteDoc(doc(firestore, "orders", orderId));
     }
   };
+  
 
-  // Filter logic for date, customer name, etc. will go here
-  const filteredOrders = orders.filter(order => {
-    // Apply filters based on the filter state variables
-    
-    return true; // Modify this to apply actual filtering logic
+// Filter logic for orders
+const filteredOrders = orders.filter(order => {
+    // return (
+    //   (filters.orderID === '' || order.orderID.includes(filters.orderID)) &&
+    //   (filters.customerName === '' || 
+    //     ((order.firstName + ' ' + order.lastName).toLowerCase().includes(filters.customerName.toLowerCase()))) &&
+    //   (filters.country === '' || (order.country && order.country.toLowerCase().includes(filters.country.toLowerCase()))) &&
+    //   (filters.status === '' || (order.status && order.status.toLowerCase().includes(filters.status.toLowerCase())))
+    // );
+    // return true;
+    const matchesOrderID = filters.orderID === '' || (order.orderID && order.orderID.includes(filters.orderID));
+    const matchesCustomerName = filters.customerName === '' || 
+      (`${order.firstName} ${order.lastName}`.toLowerCase().includes(filters.customerName.toLowerCase()));
+    const matchesCountry = filters.country === '' || (order.country && order.country.toLowerCase().includes(filters.country.toLowerCase()));
+    const matchesStatus = filters.status === '' || (order.status && order.status.toLowerCase().includes(filters.status.toLowerCase()));
+
+    return matchesOrderID && matchesCustomerName && matchesCountry && matchesStatus;
   });
+  
 
   return (
     <div className="flex min-h-screen text-brown-900">
@@ -46,7 +86,7 @@ const Orders = () => {
             placeholder="Order ID"
             className="bg-yellow-300 text-brown-900 placeholder-brown-900 px-4 py-2 rounded-lg focus:outline-none"
             value={filters.orderID}
-            onChange={(e) => setFilters({ ...filters, customerName: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, orderID: e.target.value })}
           />
           <input
             type="text"
@@ -60,14 +100,14 @@ const Orders = () => {
             placeholder="Country"
             className="bg-yellow-300 text-brown-900 placeholder-brown-900 px-4 py-2 rounded-lg focus:outline-none"
             value={filters.country}
-            onChange={(e) => setFilters({ ...filters, customerName: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, country: e.target.value })}
           />
           <input
             type="text"
             placeholder="Status"
             className="bg-yellow-300 text-brown-900 placeholder-brown-900 px-4 py-2 rounded-lg focus:outline-none"
             value={filters.status}
-            onChange={(e) => setFilters({ ...filters, customerName: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
           />
         </div>
         
@@ -95,7 +135,7 @@ const Orders = () => {
           </thead>
           <tbody>
             {filteredOrders.map((order) => (
-              <tr key={order.id} className="border-t border-brown-900 ">
+              <tr key={order.id} >
                 <td className="border border-brown-900 ">{order.orderID}</td>
                 <td className="border border-brown-900 ">{order.firstName} {order.lastName}</td>
                 {/* <td>{order.email}</td> */}
@@ -107,10 +147,20 @@ const Orders = () => {
                 <td className="border border-brown-900 ">{order.subtotal}</td>
                 <td className="border border-brown-900 ">{order.shippingRate}</td>
                 <td className="border border-brown-900 ">{order.orderTotal}</td>
-                <td className="border border-brown-900 ">{new Date(order.orderDate).toLocaleDateString()}</td>
-                <td className="border border-brown-900 ">{order.itemsCount}</td>
-                <td className="border border-brown-900">{order.status}</td>
-                <td>
+                <td className="border border-brown-900 ">{order.orderDate}</td>
+                <td className="border border-brown-900 ">{order.totalItems}</td>
+                <td className="border border-brown-900">
+                  <select
+                    value={order.status}
+                    onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
+                    className="bg-transparent text-brown-900 px-2 py-1 rounded-lg"
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </td>
+                <td className="border border-brown-900">
                   <button
                     className="bg-brown-900 text-yellow-200 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 transition duration-300"
                     onClick={() => handleDelete(order.id)}
