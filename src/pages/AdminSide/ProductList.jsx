@@ -21,10 +21,14 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const querySnapshot = await getDocs(collection(firestore, "products"));
-      const productList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const productList = querySnapshot.docs.map((doc) => {
+        const productData = doc.data();
+        return {
+          pid: productData.id, // Assuming there's an `id` field in product data
+          docID: doc.id, // Firestore document ID
+          ...productData,
+        };
+      });
       setProducts(productList);
     };
     fetchProducts();
@@ -37,29 +41,35 @@ const ProductList = () => {
 
   const handleSaveChanges = async () => {
     if (selectedProduct) {
-      const { id, ...productData } = selectedProduct; // Exclude the 'id' field
-      const productRef = doc(firestore, "products", id);
-
+      const { docID, ...productData } = selectedProduct; // Exclude the 'docID'
+      const productRef = doc(firestore, "products", docID);
+  
+      // Filter out any undefined fields
+      const validProductData = Object.fromEntries(
+        Object.entries(productData).filter(([_, v]) => v !== undefined)
+      );
+  
       try {
-        const docSnap = await getDoc(productRef); // Check if the document exists
-
+        const docSnap = await getDoc(productRef);
+  
         if (docSnap.exists()) {
-          await updateDoc(productRef, productData); // Update only the fields excluding 'id'
+          await updateDoc(productRef, validProductData);
           console.log("Product updated successfully.");
         } else {
-          console.error("No document found with ID:", id);
+          console.error("No document found with ID:", docID);
         }
-
+  
         setShowPopup(false);
       } catch (error) {
         console.error("Error updating product:", error);
       }
     }
   };
+  
 
-  const handleRemove = async (id) => {
-    await deleteDoc(doc(firestore, "products", id));
-    setProducts(products.filter((product) => product.id !== id));
+  const handleRemove = async (docID) => {
+    await deleteDoc(doc(firestore, "products", docID));
+    setProducts(products.filter((product) => product.docID !== docID));
   };
 
   const handleFilterChange = (e) => {
@@ -68,10 +78,8 @@ const ProductList = () => {
 
   const filteredProducts = products.filter((product) => {
     return (
-      (filters.category === "" ||
-        product.category?.includes(filters.category)) &&
-      (filters.name === "" ||
-        product.name.toLowerCase().includes(filters.name.toLowerCase())) &&
+      (filters.category === "" || product.category?.includes(filters.category)) &&
+      (filters.name === "" || product.name.toLowerCase().includes(filters.name.toLowerCase())) &&
       (filters.size === "" || product.size?.includes(filters.size))
     );
   });
@@ -116,11 +124,11 @@ const ProductList = () => {
 
         {/* Product Table */}
         <div className="overflow-x-auto shadow-2xl">
-          <table className="min-w-full bg-gradient-to-br from-white to-yellow-200 text-brown-900 rounded-lg shadow-2xl ">
+          <table className="min-w-full bg-gradient-to-br from-white to-yellow-200 text-brown-900 rounded-lg shadow-2xl">
             <thead className="bg-brown-900 text-yellow-500 h-12 text-xl">
               <tr>
                 <th className="py-2 rounded-tl-3xl">Sr. No.</th>
-                <th className="py-2">ID</th>
+                <th className="py-2">Document ID</th> {/* Changed to Document ID */}
                 <th className="py-2">Name</th>
                 <th className="py-2">Category</th>
                 <th className="py-2">Size</th>
@@ -132,35 +140,25 @@ const ProductList = () => {
             </thead>
             <tbody>
               {filteredProducts.map((product, index) => (
-                <tr
-                  key={product.id}
-                  className="text-center hover:bg-yellow-500"
-                >
+                <tr key={product.docID} className="text-center hover:bg-yellow-500">
                   <td className="py-2">{index + 1}</td>
-                  <td className="py-2">{product.id}</td>
+                  <td className="py-2">{product.docID}</td> {/* Use docID here */}
                   <td className="py-2">{product.name}</td>
                   <td className="py-2">{product.category}</td>
-                  <td className="py-2">
-                    {product.size == null ? "-" : product.size}
-                  </td>
-                  <td className="py-2">
-                    {product.color == null ? "-" : product.color}
-                  </td>
-                  <td className="py-2">
-                    {" "}
-                    ₹{product.offerPrice ?? product.originalPrice}
-                  </td>
+                  <td className="py-2">{product.size == null ? "-" : product.size}</td>
+                  <td className="py-2">{product.color == null ? "-" : product.color}</td>
+                  <td className="py-2">₹{product.offerPrice ?? product.originalPrice}</td>
                   <td className="py-2">
                     <button
                       onClick={() => handleEdit(product)}
-                      className="bg-yellow-200 text-brown-900 hover:bg-yellow-500 p-2 rounded"
+                      className="bg-transparent text-brown-900 hover:bg-yellow-500 p-2 rounded"
                     >
                       <FaEdit />
                     </button>
                   </td>
                   <td className="py-2">
                     <button
-                      onClick={() => handleRemove(product.id)}
+                      onClick={() => handleRemove(product.docID)} // Use docID here
                       className="bg-red-500 text-white hover:bg-red-700 p-2 rounded"
                     >
                       <FaTrash />
@@ -281,9 +279,7 @@ const ProductList = () => {
                   onChange={(e) =>
                     setSelectedProduct({
                       ...selectedProduct,
-                      offerPrice: e.target.checked
-                        ? ""
-                        : selectedProduct.offerPrice,
+                      offerPrice: e.target.checked ? "" : selectedProduct.offerPrice,
                     })
                   }
                   className="mr-2"
