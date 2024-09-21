@@ -138,43 +138,50 @@ export default function Checkout() {
       alert('Please log in to place an order.');
       return;
     }
-
+  
     if (validateForm()) {
       try {
-        // Generate order document ID: "order srno followed by date and month"
         const date = new Date();
-        const orderID = `order-${cartItems.length}-${date.getDate()}${date.getMonth() + 1}`;
-
+        const orderID = `order-${cartItems.length}-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  
+        // Format the date as "September 21, 2024"
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const orderDate = date.toLocaleDateString('en-US', options);
+  
+        // Calculate total items
+        const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  
         const orderData = {
-          userID: user.uid, // User's ID
-          username: user.email, // Assuming email is used as the username
+          userID: user.uid,
+          username: user.email,
           ...formData,
           cartItems,
           orderTotal,
           shippingRate,
           subtotal,
-          date: serverTimestamp(), // Store Firestore server timestamp for order time
+          totalItems,
+          status: 'pending',
+          orderDate, // Renamed the date field
+          date: serverTimestamp(), // Keep Firestore timestamp for internal use
         };
-
-        // Reference to the global 'orders' collection
+  
         const ordersCollectionRef = collection(firestore, 'orders');
-        
-        // Add the order to the orders collection
         await addDoc(ordersCollectionRef, { ...orderData, orderID });
-
+  
         setCartItems([]);
         localStorage.removeItem('cartItems');
         setOrderPlaced(true);
-
+  
         setTimeout(() => {
           navigate('/');
         }, 10000);
-
+  
       } catch (error) {
         console.error('Error placing order:', error);
       }
     }
   };
+    
 
 
   if (orderPlaced) {
