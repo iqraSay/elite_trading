@@ -9,6 +9,8 @@ import {
 import { firestore } from "../../Firebase"; // Make sure your Firebase setup is correctly configured
 import AdminSidebar from "./AdminSidebar"; // Import your Sidebar component
 
+import { FaTrash } from "react-icons/fa";
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState({
@@ -159,7 +161,7 @@ const Orders = () => {
                 <th>Order Date</th>
                 <th>Items Count</th>
                 <th>Status</th>
-                <th className="rounded-tr-3xl">Actions</th>
+                <th className="rounded-tr-3xl">Remove</th>
               </tr>
             </thead>
             <tbody>
@@ -202,11 +204,10 @@ const Orders = () => {
                     </select>
                   </td>
                   <td className="border border-brown-900">
-                    <button
-                      className="bg-brown-900 text-yellow-200 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 transition duration-300"
-                      onClick={() => handleDelete(order.id)}
-                    >
-                      Remove
+                    <button onClick={() => handleDelete(order.id)}
+                      className="text-brown-900 hover:bg-yellow-500 hover:scale-110 p-2 rounded"
+                      >
+                        <FaTrash />
                     </button>
                   </td>
                 </tr>

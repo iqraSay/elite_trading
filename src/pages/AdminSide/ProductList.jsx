@@ -151,7 +151,7 @@ const ProductList = () => {
                   <td className="py-2">
                     <button
                       onClick={() => handleEdit(product)}
-                      className="bg-transparent text-brown-900 hover:bg-yellow-500 p-2 rounded"
+                      className="bg-transparent text-brown-900 hover:bg-yellow-500 hover:scale-110 p-2 rounded"
                     >
                       <FaEdit />
                     </button>
@@ -159,7 +159,7 @@ const ProductList = () => {
                   <td className="py-2">
                     <button
                       onClick={() => handleRemove(product.docID)} // Use docID here
-                      className="bg-red-500 text-white hover:bg-red-700 p-2 rounded"
+                      className="text-brown-900 hover:bg-yellow-500 hover:scale-110 p-2 rounded"
                     >
                       <FaTrash />
                     </button>

@@ -169,27 +169,27 @@ const Dashboard = () => {
           Admin Dashboard
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          <div className="bg-brown-900 text-yellow-200 p-6 shadow rounded-lg text-center">
+          <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
             <FontAwesomeIcon icon={faUsers} className="w-12 h-12" />
             <h2 className="text-xl font-semibold mb-2">Total Customers</h2>
             <p className="text-3xl">{totalCustomers}</p>
           </div>
-          <div className="bg-brown-900 text-yellow-200 p-6 shadow rounded-lg text-center">
+          <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
             <FontAwesomeIcon icon={faClipboardList} className="w-12 h-12" />
             <h2 className="text-xl font-semibold mb-2">Total Orders</h2>
             <p className="text-3xl">{totalOrders}</p>
           </div>
-          <div className="bg-brown-900 text-yellow-200 p-6 shadow rounded-lg text-center">
+          <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
             <FontAwesomeIcon icon={faBoxes} className="w-12 h-12" />
             <h2 className="text-xl font-semibold mb-2">Products Available</h2>
             <p className="text-3xl">{productsAvailable}</p>
           </div>
-          <div className="bg-brown-900 text-yellow-200 p-6 shadow rounded-lg text-center">
+          <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
             <FontAwesomeIcon icon={faShippingFast} className="w-12 h-12" />
             <h2 className="text-xl font-semibold mb-2">Pending Shipments</h2>
             <p className="text-3xl">{pendingShipments}</p>
           </div>
-          <div className="bg-brown-900 text-yellow-200 p-6 shadow rounded-lg text-center">
+          <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
             <FontAwesomeIcon icon={faMoneyBill1Wave} className="w-12 h-12" />
             <h2 className="text-xl font-semibold mb-2">Profit</h2>
             <p className="text-3xl">₹{profit}</p>
