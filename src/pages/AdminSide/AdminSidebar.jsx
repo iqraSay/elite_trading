@@ -62,7 +62,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className='bg-gray-100 w-1/5 text-2xl'>
+    <div className=' w-1/5 text-2xl'>
       {/* Hamburger Button for medium screens */}
       <button
         className="md:hidden p-2 text-brown-900"
