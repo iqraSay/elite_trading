@@ -167,8 +167,8 @@ export default function Checkout() {
         setOrderPlaced(true);
   
         setTimeout(() => {
-          navigate('/');
-        }, 10000);
+          navigate(`/order/${orderID}`);
+        }, 1000);
   
       } catch (error) {
         console.error('Error placing order:', error);
@@ -182,7 +182,7 @@ export default function Checkout() {
     return (
       <div className="text-center p-6">
         <h1 className="text-4xl font-bold mb-4">Thank You for Shopping with Elite Trading!</h1>
-        <p className="text-xl">Your order has been placed successfully. You will be redirected to the home page in 10 seconds.</p>
+        <p className="text-xl">Your order has been placed successfully. You will be redirected to the order bill in a few seconds.</p>
       </div>
     );
   }
