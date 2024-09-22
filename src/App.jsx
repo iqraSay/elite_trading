@@ -10,6 +10,7 @@ import ProductPage from './pages/UserSide/ProductPage';
 import ProductDisplay from './pages/UserSide/ProductDisplay';
 import Cart from './pages/UserSide/Cart';
 import Checkout from './pages/UserSide/Checkout';
+import OrderBill from './pages/UserSide/OrderBill';
 import AdminProductForm from './pages/AdminSide/AdminProductForm';
 import AdminSignup from './pages/AdminSide/AdminSignup';
 import AdminLogin from './pages/AdminSide/AdminLogin';
@@ -19,6 +20,7 @@ import UserManager from './pages/AdminSide/UserManager';
 import CategoryManager from './pages/AdminSide/CategoryManager';
 import Shipment from './pages/AdminSide/Shipment';
 import Orders from './pages/AdminSide/Orders';
+
 
 
 
@@ -35,6 +37,7 @@ function App() {
       <Route path='*' element ={<ErrorPage/>} />
       <Route path="/productdisplay/:category" element={<ProductDisplay />} />
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path="/order/:orderId" element={<OrderBill />} />
       <Route path='/cart' element ={<Cart/>} />
       <Route path='/AdminProductForm' element ={<AdminProductForm/>} />
       <Route path='/AdminSignup' element ={<AdminSignup/>} />
