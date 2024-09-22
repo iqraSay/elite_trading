@@ -66,16 +66,7 @@ const Orders = () => {
     }
   };
 
-  // Filter logic for orders
   const filteredOrders = orders.filter((order) => {
-    // return (
-    //   (filters.orderID === '' || order.orderID.includes(filters.orderID)) &&
-    //   (filters.customerName === '' ||
-    //     ((order.firstName + ' ' + order.lastName).toLowerCase().includes(filters.customerName.toLowerCase()))) &&
-    //   (filters.country === '' || (order.country && order.country.toLowerCase().includes(filters.country.toLowerCase()))) &&
-    //   (filters.status === '' || (order.status && order.status.toLowerCase().includes(filters.status.toLowerCase())))
-    // );
-    // return true;
     const matchesOrderID =
       filters.orderID === "" ||
       (order.orderID && order.orderID.includes(filters.orderID));
@@ -106,6 +97,7 @@ const Orders = () => {
         <h1 className="text-3xl font-bold mb-4">Orders Manager</h1>
         {/* Filters */}
         <div className=" flex-col space-x-4 mb-4 md:flex-row space-y-4">
+          <p className="text-brown-900 text-xl font-bold ml-4">Filter by: </p>
           <input
             type="text"
             placeholder="Order ID"
@@ -149,10 +141,10 @@ const Orders = () => {
               <tr>
                 <th className="rounded-tl-3xl">Order ID</th>
                 <th>Customer Name</th>
-                {/* <th>Email</th> */}
+                <th>Email</th>
                 <th>Phone</th>
                 <th>Address</th>
-                {/* <th>Town</th> */}
+                <th>Town</th>
                 <th>State</th>
                 <th>Country</th>
                 <th>Subtotal</th>
@@ -168,13 +160,11 @@ const Orders = () => {
               {filteredOrders.map((order) => (
                 <tr key={order.id}>
                   <td className="border border-brown-900 ">{order.orderID}</td>
-                  <td className="border border-brown-900 ">
-                    {order.firstName} {order.lastName}
-                  </td>
-                  {/* <td>{order.email}</td> */}
+                  <td className="border border-brown-900 ">{order.firstName} {order.lastName}</td>
+                  <td className="border border-brown-900 ">{order.email}</td>
                   <td className="border border-brown-900 ">{order.phone}</td>
                   <td className="border border-brown-900 ">{order.address}</td>
-                  {/* <td>{order.town}</td> */}
+                  <td className="border border-brown-900 ">{order.town}</td>
                   <td className="border border-brown-900 ">{order.state}</td>
                   <td className="border border-brown-900 ">{order.country}</td>
                   <td className="border border-brown-900 ">{order.subtotal}</td>

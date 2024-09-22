@@ -13,40 +13,6 @@ const OrderBill = () => {
   const navigate = useNavigate();
   const orderRef = useRef(null);
 
-//   useEffect(() => {
-//     const fetchOrder = async () => {
-//       try {
-//         if (!orderId) {
-//           alert('No order found. Redirecting to cart.');
-//           navigate('/cart');
-//           return;
-//         }
-  
-//         // Query Firestore to get the order by orderID field
-//         const querySnapshot = await firestore
-//           .collection('orders')
-//           .where('orderID', '==', orderId) // Change 'orderID' to the exact field name in your Firestore
-//           .get();
-  
-//         if (querySnapshot.empty) {
-//           alert('Order not found.');
-//           navigate('/cart');
-//           return;
-//         }
-  
-//         // Assuming there is only one document with that orderID
-//         const orderData = querySnapshot.docs[0].data();
-//         setOrder(orderData);
-//       } catch (err) {
-//         console.error('Failed to fetch order data:', err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-  
-//     fetchOrder();
-//   }, [navigate, orderId]);
-  
 useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -67,7 +33,7 @@ useEffect(() => {
         }
   
         const orderData = querySnapshot.docs[0].data();
-        console.log("Order data retrieved:", orderData); // Log to inspect the order data
+        console.log("Order data retrieved:", orderData);
         setOrder(orderData);
       } catch (err) {
         console.error('Failed to fetch order data:', err);
