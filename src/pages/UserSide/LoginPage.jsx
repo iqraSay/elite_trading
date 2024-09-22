@@ -52,17 +52,14 @@ const LoginPage = () => {
     setErrors(newErrors);
 
     if (valid && email) {
-      // Use Firebase authentication
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // Successful login
           setSuccessMessage('Login successful!');
           setTimeout(() => {
             navigate('/'); 
           }, 2000);
         })
         .catch((error) => {
-          // Handle login error
           if (error.code === 'auth/wrong-password') {
             setFirebaseError('Incorrect password. Please try again.');
           } else if (error.code === 'auth/user-not-found') {

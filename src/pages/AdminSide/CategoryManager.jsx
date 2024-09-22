@@ -29,7 +29,6 @@ const CategoryManager = () => {
     fetchCategories();
   }, []);
 
-  // Handle form submission
   const handleSubmit = async () => {
     if (category && categoryType) {
       try {
@@ -40,7 +39,7 @@ const CategoryManager = () => {
         setCategory("");
         setCategoryType("");
         setShowPopup(false);
-        fetchCategories(); // Fetch the updated list of categories
+        fetchCategories();
       } catch (error) {
         console.error("Error adding category: ", error);
       }

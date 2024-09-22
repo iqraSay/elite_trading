@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.jsx';
 import ProductCard from '../../components/ProductCard.jsx';
 import FilterSidebar from '../../components/FilterSideBar.jsx';
 import Pagination from '../../components/Pagination.jsx';
-import { firestore } from '../../Firebase'; // Import Firestore
+import { firestore } from '../../Firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const ProductDisplay = () => {
@@ -33,12 +33,11 @@ const ProductDisplay = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]); // Include fetchProducts in the dependency array
+  }, [fetchProducts]);
 
   const categoryProducts = filteredProducts.filter((product) => product.category === category);
   const totalPages = Math.ceil(categoryProducts.length / productsPerPage);
 
-  // Determine which products to show on the current page
   const startIndex = (currentPage - 1) * productsPerPage;
   const currentProducts = categoryProducts.slice(startIndex, startIndex + productsPerPage);
 

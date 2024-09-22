@@ -50,11 +50,9 @@ const Signup = () => {
 
         if (valid) {
             try {
-                // Create user with Firebase Authentication
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // Add user data to Firestore
                 await setDoc(doc(firestore, 'users', user.uid), {
                     username: username,
                     email: email,

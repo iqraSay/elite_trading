@@ -4,7 +4,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faDashboard, faUsers, faBoxes, faShippingFast, faTags, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../assets/eliteTradingLogo.png';
+import logo from '../../assets/logo.png';
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);

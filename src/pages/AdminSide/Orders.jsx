@@ -102,14 +102,14 @@ const Orders = () => {
     <div className="flex min-h-screen text-brown-900">
       {/* Sidebar */}
       <AdminSidebar />
-      <div className="flex-grow p-8">
+      <div className="container mx-auto p-4 ">
         <h1 className="text-3xl font-bold mb-4">Orders Manager</h1>
         {/* Filters */}
-        <div className="mb-6 space-y-4 space-x-2">
+        <div className=" flex-col space-x-4 mb-4 md:flex-row space-y-4">
           <input
             type="text"
             placeholder="Order ID"
-            className="bg-yellow-300 text-brown-900 placeholder-brown-900 px-4 py-2 rounded-lg focus:outline-none"
+            className="bg-yellow-300 ml-4 text-brown-900 placeholder-brown-900 px-4 py-2 rounded-lg focus:outline-none"
             value={filters.orderID}
             onChange={(e) =>
               setFilters({ ...filters, orderID: e.target.value })

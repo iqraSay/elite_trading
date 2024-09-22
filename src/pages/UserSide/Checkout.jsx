@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import { firestore, auth} from '../../Firebase.js';
-import { collection, getDocs, addDoc, doc, getDoc, updateDoc, serverTimestamp, query, where } from 'firebase/firestore';
+import { collection, getDocs, addDoc, serverTimestamp, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-// import { products } from '../Array.js';
 
 export default function Checkout() {
   const [formData, setFormData] = useState({
@@ -45,26 +44,25 @@ export default function Checkout() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        setUser(currentUser); // Set the logged-in user's info
+        setUser(currentUser);
 
-        // Fetch username from Firestore users collection
         const usersRef = collection(firestore, 'users');
         const userQuery = query(usersRef, where('email', '==', currentUser.email));
         const userSnapshot = await getDocs(userQuery);
 
         if (!userSnapshot.empty) {
-          // Assuming there's only one document with the matching email
           const userDoc = userSnapshot.docs[0];
-          setUsername(userDoc.data().username); // Set the username
+          setUsername(userDoc.data().username);
         } else {
           console.error('No matching user found with the email.');
         }
       }
     });
-
+    
     return () => unsubscribe();
   }, []);
-
+  
+  console.error(`User is: ${username}`);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -84,14 +82,12 @@ export default function Checkout() {
   useEffect(() => {
     const storedProduct = JSON.parse(localStorage.getItem('selectedProduct'));
     if (storedProduct) {
-      // Handle case where a single product was stored in localStorage
       const product = products.find(p => p.id === storedProduct.id);
       if (product) {
         setCartItems([{ ...product, quantity: 1 }]);
-        localStorage.removeItem('selectedProduct'); // Clean up single product
+        localStorage.removeItem('selectedProduct');
       }
     } else {
-      // Handle case where multiple items are stored in localStorage
       const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
       const items = Object.keys(storedCartItems).map(id => {
         const product = products.find(p => p.id === id);
@@ -144,11 +140,9 @@ export default function Checkout() {
         const date = new Date();
         const orderID = `order-${cartItems.length}-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   
-        // Format the date as "September 21, 2024"
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const orderDate = date.toLocaleDateString('en-US', options);
   
-        // Calculate total items
         const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   
         const orderData = {
@@ -161,8 +155,8 @@ export default function Checkout() {
           subtotal,
           totalItems,
           status: 'pending',
-          orderDate, // Renamed the date field
-          date: serverTimestamp(), // Keep Firestore timestamp for internal use
+          orderDate,
+          date: serverTimestamp(),
         };
   
         const ordersCollectionRef = collection(firestore, 'orders');

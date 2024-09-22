@@ -1,4 +1,3 @@
-// FilterSidebar.jsx
 import React, { useState } from 'react';
 
 const FilterSidebar = ({ onFilterChange }) => {

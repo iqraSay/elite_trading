@@ -18,7 +18,7 @@ const ProductPage = () => {
   const product = products.find((p) => p.id === productId);
   const [mainImage, setMainImage] = useState(product.image);
   const [showSizeChart, setShowSizeChart] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  // const [isWishlisted, setIsWishlisted] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -53,9 +53,9 @@ const ProductPage = () => {
     setShowSizeChart(!showSizeChart);
   };
 
-  const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-  };
+  // const toggleWishlist = () => {
+  //   setIsWishlisted(!isWishlisted);
+  // };
 
   return (
     <div className="flex flex-col min-h-screen">
