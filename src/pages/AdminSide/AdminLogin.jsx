@@ -23,7 +23,7 @@ const AdminLoginPage = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!adminNameOrEmail) {
-      newErrors.adminNameOrEmail = 'Please enter a valid admin name or email'; // Updated error message
+      newErrors.adminNameOrEmail = 'Please enter a valid admin name or email';
       valid = false;
     } else if (emailRegex.test(adminNameOrEmail)) {
       email = adminNameOrEmail;

@@ -24,8 +24,8 @@ const ProductList = () => {
       const productList = querySnapshot.docs.map((doc) => {
         const productData = doc.data();
         return {
-          pid: productData.id, // Assuming there's an `id` field in product data
-          docID: doc.id, // Firestore document ID
+          pid: productData.id,
+          docID: doc.id,
           ...productData,
         };
       });
@@ -41,10 +41,9 @@ const ProductList = () => {
 
   const handleSaveChanges = async () => {
     if (selectedProduct) {
-      const { docID, ...productData } = selectedProduct; // Exclude the 'docID'
+      const { docID, ...productData } = selectedProduct;
       const productRef = doc(firestore, "products", docID);
   
-      // Filter out any undefined fields
       const validProductData = Object.fromEntries(
         Object.entries(productData).filter(([_, v]) => v !== undefined)
       );
@@ -128,7 +127,7 @@ const ProductList = () => {
             <thead className="bg-brown-900 text-yellow-500 h-12 text-xl">
               <tr>
                 <th className="py-2 rounded-tl-3xl">Sr. No.</th>
-                <th className="py-2">Document ID</th> {/* Changed to Document ID */}
+                <th className="py-2">Product ID</th>
                 <th className="py-2">Name</th>
                 <th className="py-2">Category</th>
                 <th className="py-2">Size</th>
@@ -142,7 +141,7 @@ const ProductList = () => {
               {filteredProducts.map((product, index) => (
                 <tr key={product.docID} className="text-center hover:bg-yellow-500">
                   <td className="py-2">{index + 1}</td>
-                  <td className="py-2">{product.docID}</td> {/* Use docID here */}
+                  <td className="py-2">{product.pid}</td>
                   <td className="py-2">{product.name}</td>
                   <td className="py-2">{product.category}</td>
                   <td className="py-2">{product.size == null ? "-" : product.size}</td>
@@ -158,7 +157,7 @@ const ProductList = () => {
                   </td>
                   <td className="py-2">
                     <button
-                      onClick={() => handleRemove(product.docID)} // Use docID here
+                      onClick={() => handleRemove(product.docID)}
                       className="text-brown-900 hover:bg-yellow-500 hover:scale-110 p-2 rounded"
                     >
                       <FaTrash />

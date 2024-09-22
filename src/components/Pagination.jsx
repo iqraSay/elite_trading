@@ -68,7 +68,7 @@ const Pagination = ({ totalProducts, onSortChange, onFilterChange }) => {
                 key={option.value}
                 onClick={() => {
                   handleSortChange(option.value);
-                  setIsDropdownOpen(false); // Close dropdown after selection
+                  setIsDropdownOpen(false);
                 }}
                 className={`block w-full text-left p-2 text-brown-900 hover:text-yellow-500 ${
                   activeSort === option.value ? 'bg-yellow-500' : ''

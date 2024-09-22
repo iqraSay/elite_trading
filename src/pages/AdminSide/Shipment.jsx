@@ -4,9 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  updateDoc,
   query,
-  where,
 } from "firebase/firestore";
 import { firestore } from "../../Firebase";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -115,9 +113,9 @@ const Shipment = () => {
         </h1>
 
         {/* Filters Section */}
-        <div className="flex space-x-4 mb-4">
+        <div className="flex-col space-x-4 mb-4 md:flex-row">
           <button
-            className="bg-brown-900 text-yellow-200 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 transition duration-300"
+            className="bg-brown-900 text-yellow-200 ml-4 mb-2 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 transition duration-300"
             onClick={openAddModal}
           >
             Add Shipment
@@ -163,7 +161,9 @@ const Shipment = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
+          
           <div className="overflow-x-auto shadow-2xl">
+
             <table className="min-w-full bg-gradient-to-br from-white to-yellow-200 text-brown-900 rounded-2xl shadow-2xl border-none">
               <thead className="bg-brown-900 text-yellow-500 h-12 text-xl">
                 <tr>
@@ -212,7 +212,7 @@ const Shipment = () => {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
         )}
         <AddShipmentModal
           isOpen={addModalOpen}

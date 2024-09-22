@@ -20,7 +20,6 @@ import {
   LineController,
 } from "chart.js";
 
-// Register necessary components
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -34,7 +33,7 @@ const Dashboard = () => {
   const [totalOrders, setTotalOrders] = useState(0);
   const [productsAvailable, setProductsAvailable] = useState(0);
   const [pendingShipments, setPendingShipments] = useState(0);
-  const [profit, setProfit] = useState(0);
+  const [totalSales, setTotalSales] = useState(0);
   const [weeklySalesData, setWeeklySalesData] = useState([]);
   const [weeklyOrdersData, setWeeklyOrdersData] = useState([]);
   const [onlineVisitors, setOnlineVisitors] = useState([]);
@@ -60,16 +59,11 @@ const Dashboard = () => {
       const pendingOrdersSnapshot = await getDocs(pendingOrdersQuery);
       setPendingShipments(pendingOrdersSnapshot.size);
 
-      // const profitValue = ordersSnapshot.docs.reduce(
-      //   (acc, order) => acc + order.data().profit,
-      //   0
-      // );
-      const profitValue = ordersSnapshot.docs.reduce((acc, order) => {
-        const profit = order.data().profit;
-        return acc + (typeof profit === 'number' ? profit : 0);
+      const totalSalesValue = ordersSnapshot.docs.reduce((acc, order) => {
+        const sales = order.data().orderTotal;
+        return acc + (typeof sales === 'number' ? sales : 0);
     }, 0);
-    
-      setProfit(profitValue);
+    setTotalSales(totalSalesValue);
 
       // Dummy data for graphs
       setWeeklySalesData([
@@ -115,7 +109,7 @@ const Dashboard = () => {
       {
         label: "Weekly Sales",
         data: weeklySalesData.map((data) => data.sales),
-        borderColor: "rgba(42, 0, 0, 1)", // Yellow
+        borderColor: "rgba(42, 0, 0, 1)",
         backgroundColor: "rgba(42, 0, 0, 0.2)",
         fill: true,
       },
@@ -190,10 +184,10 @@ const Dashboard = () => {
             <p className="text-3xl">{pendingShipments}</p>
           </div>
           <div className="bg-brown-900 text-yellow-200 p-6 shadow-xl rounded-lg text-center">
-            <FontAwesomeIcon icon={faMoneyBill1Wave} className="w-12 h-12" />
-            <h2 className="text-xl font-semibold mb-2">Profit</h2>
-            <p className="text-3xl">₹{profit}</p>
-          </div>
+    <FontAwesomeIcon icon={faMoneyBill1Wave} className="w-12 h-12" />
+    <h2 className="text-xl font-semibold mb-2">Total Sales</h2>
+    <p className="text-3xl">₹{totalSales.toFixed(2)}</p>
+</div>
         </div>
 
         {/* Graphs Section */}

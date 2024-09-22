@@ -42,8 +42,8 @@ const EditShipmentModal = ({ shipmentId, isOpen, onClose, refreshShipments }) =>
     await updateDoc(docRef, formData);
 
     setLoading(false);
-    onClose(); // Close the modal after successful update
-    refreshShipments(); // Refresh the shipments table after update
+    onClose(); 
+    refreshShipments(); 
   };
 
   if (!isOpen) return null;

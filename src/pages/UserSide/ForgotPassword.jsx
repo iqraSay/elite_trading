@@ -15,7 +15,6 @@ const ForgotPassword = () => {
     const newErrors = { email: '' };
     let valid = true;
 
-    // Validate email
     if (!email) {
       newErrors.email = 'Please enter a valid email';
       valid = false;
@@ -28,7 +27,6 @@ const ForgotPassword = () => {
 
     if (valid) {
       try {
-        // Send password reset email
         await sendPasswordResetEmail(auth, email);
         setSuccessMessage('Password reset email sent. Please check your inbox.');
       } catch (error) {

@@ -9,21 +9,18 @@ const UserManager = () => {
   const [emailFilter, setEmailFilter] = useState("");
   const [mobileFilter, setMobileFilter] = useState("");
 
-  // Fetch users on mount
   useEffect(() => {
     getUsers().then((fetchedUsers) => {
-      // Ensure that fetched users have the expected structure
       const sanitizedUsers = fetchedUsers.map((user) => ({
         username: user.username || "",
         email: user.email || "",
         mobile: user.mobile || "",
       }));
       setUsers(sanitizedUsers);
-      setFilteredUsers(sanitizedUsers); // Initialize filtered users to show all
+      setFilteredUsers(sanitizedUsers);
     });
   }, []);
 
-  // Handle filtering
   useEffect(() => {
     const filtered = users.filter((user) => {
       return (

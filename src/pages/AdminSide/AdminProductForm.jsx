@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { storage, firestore } from '../../Firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 
 const AdminProductForm = () => {
+  const navigate = useNavigate();
   const [productId, setProductId] = useState('');
   const [name, setName] = useState('');
   const [image, setImage] = useState(null);
@@ -79,12 +81,26 @@ const AdminProductForm = () => {
     }
   };
 
+  const handleBackToDashboard = () => {
+    navigate('/Dashboard');
+  };
+
   return (
+    <div className="relative">
     <form 
       onSubmit={handleSubmit}
       className="max-w-lg lg:max-w-full lg:w-4/5 mx-auto p-6 bg-gradient-to-b from-white to-yellow-200 rounded-lg shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-4 fade-in"
-    >
+    > 
+    <div className='flex col-span-1 lg:col-span-2 justify-between'>
+
       <h2 className="col-span-1 lg:col-span-2 text-center text-2xl font-bold mb-4 text-brown-900">Add New Product</h2>
+       <button 
+        onClick={handleBackToDashboard} 
+        className="bg-brown-900 text-yellow-200 ml-4 mb-2 px-4 py-2 rounded-lg focus:outline-none hover:bg-yellow-500 hover:text-brown-900 hover:scale-110 transition duration-300 "
+      >
+        Back to Dashboard
+      </button>
+    </div>
 
       <div className="mb-4">
         <label className="block text-brown-900 mb-2">Product ID</label>
@@ -235,6 +251,7 @@ const AdminProductForm = () => {
         </button>
       </div>
     </form>
+    </div>
   );
 };
 

@@ -20,17 +20,15 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        setUser(currentUser); // Set the logged-in user's info
+        setUser(currentUser);
 
-        // Fetch username from Firestore users collection
         const usersRef = collection(firestore, 'users');
         const userQuery = query(usersRef, where('email', '==', currentUser.email));
         const userSnapshot = await getDocs(userQuery);
 
         if (!userSnapshot.empty) {
-          // Assuming there's only one document with the matching email
           const userDoc = userSnapshot.docs[0];
-          setUsername(userDoc.data().username); // Set the username
+          setUsername(userDoc.data().username);
         } else {
           console.error('No matching user found with the email.');
         }
