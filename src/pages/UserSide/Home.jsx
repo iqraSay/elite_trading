@@ -34,18 +34,18 @@ const Home = () => {
         >Shop Now</button>
         
       </div>
-      <Link to='/mensclothing/footwear'><img src={Shban} alt="banner" className='w-full md:h-[70vh]' /></Link>
+      <Link to='/productdisplay/Shoes'><img src={Shban} alt="banner" className='w-full md:h-[70vh]' /></Link>
       <div className=" bg-gray-200">
         <Featured  />
       </div>
-      <Link to='/mensclothing/shirts'><img src={Sban} alt="banner" className='w-full ' /></Link>
+      <Link to='/productdisplay/Shirt'><img src={Sban} alt="banner" className='w-full ' /></Link>
 
       <div ref={newArrivalsRef}>
         <NewArrivals />
       </div>
-      <Link to='/mensclothing/hoodies'><img src={Hban} alt="banner" className='w-full ' /></Link>
+      <Link to='/productdisplay/Hoodie'><img src={Hban} alt="banner" className='w-full ' /></Link>
       <RelatedItems/>
-      <Link to='/accessories/watches'><img src={Wban} alt="banner" className='w-full ' /></Link>
+      <Link to='/productdisplay/Watch'><img src={Wban} alt="banner" className='w-full ' /></Link>
       <MayLike/>
       <Footer/>
     </div>

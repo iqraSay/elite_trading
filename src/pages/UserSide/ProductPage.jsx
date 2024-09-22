@@ -6,11 +6,17 @@ import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import SizeChart from '../../components/SizeChart.jsx';
 import AddCart from '../../components/AddCart.jsx';
+import NewArrivals from '../../components/NewArrivals.jsx';
+import MayLike from '../../components/MayLike.jsx';
+import RelatedItems from '../../components/RelatedItems.jsx';
 import { auth } from '../../Firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 
 const ProductPage = () => {
+  const components = [NewArrivals, MayLike, RelatedItems];
+  const RandomComponentToRender = components[Math.floor(Math.random() * components.length)];
+
   const [user, setUser] = useState(null);
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
@@ -149,6 +155,7 @@ const ProductPage = () => {
           </div>
         </div>
       </main>
+      <RandomComponentToRender />
       <Footer />
       {showSizeChart && <SizeChart onClose={toggleSizeChart} />}
     </div>
