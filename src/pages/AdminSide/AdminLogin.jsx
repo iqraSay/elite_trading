@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, firestore } from '../../Firebase';
-import Header from '../../components/navbar.jsx';
 import '../UserSide/LoginPage.css';
 
 const AdminLoginPage = () => {
-  const [adminNameOrEmail, setAdminNameOrEmail] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ adminNameOrEmail: '', password: '' }); 
+  const [errors, setErrors] = useState({ usernameOrEmail: '', password: '' }); 
   const [successMessage, setSuccessMessage] = useState('');
   const [firebaseError, setFirebaseError] = useState('');
   const navigate = useNavigate();
@@ -17,25 +16,25 @@ const AdminLoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let valid = true;
-    const newErrors = { adminNameOrEmail: '', password: '' }; 
+    const newErrors = { usernameOrEmail: '', password: '' }; 
     let email = '';
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!adminNameOrEmail) {
-      newErrors.adminNameOrEmail = 'Please enter a valid admin name or email';
+    if (!usernameOrEmail) {
+      newErrors.usernameOrEmail = 'Please enter a valid admin name or email';
       valid = false;
-    } else if (emailRegex.test(adminNameOrEmail)) {
-      email = adminNameOrEmail;
+    } else if (emailRegex.test(usernameOrEmail)) {
+      email = usernameOrEmail;
     } else {
       try {
-        const q = query(collection(firestore, 'admin'), where('adminName', '==', adminNameOrEmail));
+        const q = query(collection(firestore, 'users'), where('username', '==', usernameOrEmail));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
           email = querySnapshot.docs[0].data().email;
         } else {
-          newErrors.adminNameOrEmail = 'Admin name not found';
+          newErrors.usernameOrEmail = 'Admin name not found';
           valid = false;
         }
       } catch (error) {
@@ -73,7 +72,6 @@ const AdminLoginPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-grow flex items-center justify-center p-4">
         <div className="w-full max-w-md mx-auto bg-gradient-to-t from-[#ffffff] to-yellow-300 rounded-lg shadow-lg p-6 fade-in">
           <h2 className="text-3xl font-bold text-[#2a0000] mb-6 text-center">Login</h2>
@@ -87,11 +85,11 @@ const AdminLoginPage = () => {
               <input
                 type="text"
                 placeholder="Admin Name or Email"
-                value={adminNameOrEmail}
-                onChange={(e) => setAdminNameOrEmail(e.target.value)}
+                value={usernameOrEmail}
+                onChange={(e) => setUsernameOrEmail(e.target.value)}
                 className="w-full p-3 border rounded-lg border-gray-300 transition-all"
               />
-              {errors.adminNameOrEmail && <div className="text-red-600 mt-1">{errors.adminNameOrEmail}</div>}
+              {errors.usernameOrEmail && <div className="text-red-600 mt-1">{errors.usernameOrEmail}</div>}
             </div>
             <div className="relative">
               <input
@@ -110,8 +108,8 @@ const AdminLoginPage = () => {
               Login
             </button>
             <div className="flex justify-between mt-2">
-              <Link to="/forgotpassword" className="text-[#2a0000] hover:underline">Forgot your password?</Link>
-              <Link to="/AdminSignup" className="text-[#2a0000] hover:underline">New here? Sign up!</Link>
+              {/* <Link to="/forgotpassword" className="text-[#2a0000] hover:underline">Forgot your password?</Link> */}
+              {/* <Link to="/AdminSignup" className="text-[#2a0000] hover:underline">New here? Sign up!</Link> */}
             </div>
           </form>
         </div>

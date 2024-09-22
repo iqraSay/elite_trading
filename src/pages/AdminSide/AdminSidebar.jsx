@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faDashboard, faUsers, faBoxes, faShippingFast, faTags, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faDashboard, faUser, faUsers, faBoxes, faShippingFast, faTags, faClipboardList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/logo.png';
 
 const AdminSidebar = () => {
@@ -156,6 +156,17 @@ const AdminSidebar = () => {
           >
             <FontAwesomeIcon icon={faShippingFast} />
             <span className="ml-2">Shipment</span>
+          </Link>
+          <Link
+            to="/AdminSignup"
+            className={`flex items-center p-2 rounded ${
+              location.pathname === '/AdminSignup'
+                ? 'bg-yellow-200 text-brown-900'
+                : 'hover:bg-yellow-500 hover:text-brown-900'
+            }`}
+          >
+            <FontAwesomeIcon icon={faUser} />
+            <span className="ml-2">Add Admin</span>
           </Link>
           <button
             onClick={handleLogout}

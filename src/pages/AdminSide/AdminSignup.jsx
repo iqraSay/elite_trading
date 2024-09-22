@@ -3,15 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, firestore } from '../../Firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import Header from '../../components/navbar.jsx';
+import AdminSidebar from './AdminSidebar';
 import '../UserSide/LoginPage.css';
 
 const AdminSignup = () => {
-    const [adminName, setAdminName] = useState(''); 
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [mobile, setMobile] = useState('');
     const [email, setEmail] = useState('');
-    const [errors, setErrors] = useState({ adminName: '', password: '', email: '', mobile: '' });
+    const [errors, setErrors] = useState({ username: '', password: '', email: '', mobile: '' });
     const [successMessage, setSuccessMessage] = useState('');
     const [firebaseError, setFirebaseError] = useState('');
     const navigate = useNavigate();
@@ -19,15 +19,15 @@ const AdminSignup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let valid = true;
-        const newErrors = { adminName: '', password: '', email: '', mobile: '' };
+        const newErrors = { username: '', password: '', email: '', mobile: '' };
 
         const validateEmail = (email) => {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         };
 
-        if (!adminName) { 
-            newErrors.adminName = 'Please enter an admin name';
+        if (!username) {
+            newErrors.username = 'Please enter a Admin name';
             valid = false;
         }
 
@@ -53,17 +53,14 @@ const AdminSignup = () => {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                await setDoc(doc(firestore, 'admin', user.uid), { 
-                    adminName: adminName,
+                await setDoc(doc(firestore, 'users', user.uid), {
+                    username: username,
                     email: email,
                     mobile: mobile,
                     role: 'admin'
                 });
 
-                setSuccessMessage('Signup successful!');
-                setTimeout(() => {
-                    navigate('/');
-                }, 2000);
+                setSuccessMessage('Admin successfully added!');
             } catch (error) {
                 setFirebaseError(error.message);
             }
@@ -71,29 +68,30 @@ const AdminSignup = () => {
     };
 
     return (
-      <div className="min-h-screen flex flex-col ">
-        <Header />
+      <div className="min-h-screen flex ">
+        <AdminSidebar />
         <main className="flex-grow flex items-center justify-center p-4">
           <div className="w-full max-w-md mx-auto bg-gradient-to-t from-[#ffffff] to-yellow-300 rounded-lg shadow-lg p-6 fade-in">
-            <h2 className="text-3xl font-bold text-[#2a0000] mb-6 text-center">Sign Up</h2>
-            {firebaseError || successMessage ? (
-            <div className={`mb-4 ${firebaseError ? 'text-red-600' : 'text-green-600'}`}>
-              {firebaseError || successMessage}
-            </div>
-          ) : null}
+            <h2 className="text-3xl font-bold text-[#2a0000] mb-6 text-center">Add an Admin</h2>
+            {successMessage && (
+              <div className="text-green-600 mb-4">{successMessage}</div>
+            )}
+            {firebaseError && (
+              <div className="text-red-600 mb-4">{firebaseError}</div>
+            )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Admin Name"
-                  value={adminName}
-                  onChange={(e) => setAdminName(e.target.value)}
+                  placeholder="Admin name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   onFocus={(e) => e.target.classList.add('focus')}
                   onBlur={(e) => e.target.classList.remove('focus')}
                   className="w-full p-3 border rounded-lg border-gray-300 transition-all"
                 />
-                {errors.adminName && (
-                  <div className="text-red-600 mt-1">{errors.adminName}</div> 
+                {errors.username && (
+                  <div className="text-red-600 mt-1">{errors.username}</div>
                 )}
               </div>
               <div className="relative">
@@ -140,11 +138,8 @@ const AdminSignup = () => {
                 type="submit"
                 className="w-full bg-[#2a0000] text-white p-3 rounded-lg hover:bg-[#3a0000] transition-transform transform hover:scale-105 ripple-effect"
               >
-                Sign Up
+                Add
               </button>
-              <div className="text-center">
-                <Link to="/adminlogin" className="text-[#2a0000] hover:underline">Back to Login</Link> 
-              </div>
             </form>
           </div>
         </main>
