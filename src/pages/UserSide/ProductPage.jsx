@@ -1,7 +1,7 @@
-// src/pages/ProductDetails.jsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate,useParams, Link } from 'react-router-dom';
-import { products } from '../Array.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import { firestore } from '../../Firebase'; // Make sure to import Firestore
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
 import SizeChart from '../../components/SizeChart.jsx';
@@ -12,25 +12,40 @@ import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 
 const ProductPage = () => {
   const [user, setUser] = useState(null);
-  
-  const navigate = useNavigate(); 
-  const { productId } = useParams();
-  const product = products.find((p) => p.id === productId);
-  const [mainImage, setMainImage] = useState(product.image);
+  const [product, setProduct] = useState(null); // Initialize product as null
+  const [mainImage, setMainImage] = useState(null);
   const [showSizeChart, setShowSizeChart] = useState(false);
-  // const [isWishlisted, setIsWishlisted] = useState(false);
+  const { productId } = useParams(); // Get productId from the URL params
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        // Query Firestore to get the product where 'id' matches the productId from the URL
+        const q = query(collection(firestore, 'products'), where('id', '==', productId));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const productData = querySnapshot.docs[0].data(); // Get the first matched product
+          setProduct(productData); // Set product data to state
+          setMainImage(productData.image); // Set main image initially
+        } else {
+          console.error('Product not found');
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
+
     return () => unsubscribe();
-  }, []);
+  }, [productId]); // Re-run the effect when productId changes
 
-
-  if (!product) {
-    return <div>Product not found</div>;
-  }
   const handleBuyNow = () => {
     localStorage.setItem('selectedProduct', JSON.stringify(product));
     navigate('/checkout'); 
@@ -44,7 +59,6 @@ const ProductPage = () => {
     }
   };
 
-
   const handleImageClick = (image) => {
     setMainImage(image);
   };
@@ -53,18 +67,18 @@ const ProductPage = () => {
     setShowSizeChart(!showSizeChart);
   };
 
-  // const toggleWishlist = () => {
-  //   setIsWishlisted(!isWishlisted);
-  // };
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex flex-col items-center mx-auto my-8 p-4 w-full max-w-6xl">
-        <div className="flex flex-col md:flex-row w-full bg-background rounded-lg shadow-md">
+      <main className="bg-gradient-to-br from-white to-yellow-200 text-brown-900 shadow-2xl rounded-lg flex flex-col items-center mx-auto my-8 p-4 w-full max-w-6xl">
+        <div className="flex flex-col md:flex-row w-full bg-background ">
           <div className="flex flex-col items-center md:w-1/2 p-4">
             <div className="flex space-x-4">
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col w-full space-y-2">
                 <img
                   src={product.image}
                   alt="Thumbnail 1"
@@ -80,17 +94,14 @@ const ProductPage = () => {
               </div>
               <div className="relative">
                 <img src={mainImage} alt="Product Main" className="w-full h-auto rounded-lg" />
-                {/* <button onClick={toggleWishlist} className={`absolute top-2 right-2 hover:bg-transparent text-${isWishlisted ? 'red-600' : 'slate-400'}`}>
-                  <FontAwesomeIcon icon={faHeart} size="2x" />
-                </button> */}
-            <h2 className="text-2xl font-semibold text-center">{product.name}</h2>
-            <div className="flex space-x-4 mt-2">
-              <AddCart product={product} />
-              <button onClick={handleClick} className="bg-brown-900 hover:text-brown-900 hover:bg-yellow-500 text-yellow-200 py-2 px-4 rounded-full font-bold flex items-center mt-4">
-                <FontAwesomeIcon icon={faMoneyBill1Wave} className="mr-3" />
-                BUY NOW
-              </button>
-            </div>
+                <h2 className="text-2xl font-semibold text-center">{product.name}</h2>
+                <div className="flex space-x-4 mt-2 justify-between">
+                  <AddCart product={product} />
+                  <button onClick={handleClick} className="bg-brown-900 hover:text-brown-900 hover:bg-yellow-500 text-yellow-200 py-2 px-4 rounded-full font-bold flex items-center mt-4">
+                    <FontAwesomeIcon icon={faMoneyBill1Wave} className="mr-3" />
+                    BUY NOW
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +113,7 @@ const ProductPage = () => {
                 {product.offerPrice ? (
                   <div className="flex items-center mt-2">
                     <span className="text-2xl font-bold text-primary">₹{product.offerPrice}</span>
-                    <span className="text-lg line-through text-muted-foreground ml-2">₹{product.originalPrice}</span>
+                    <span className="text-lg line-through text-gray-500 text-muted-foreground ml-2">₹{product.originalPrice}</span>
                   </div>
                 ) : (
                   <div className="flex items-center mt-2">
@@ -116,34 +127,25 @@ const ProductPage = () => {
                   {product.reviews} ratings and {Math.floor(product.reviews / 2)} reviews
                 </span>
               </div>
-              <div className="mt-6">
-                <h2 className="text-lg font-semibold text-primary">Color</h2>
-                <div className="flex space-x-2 mt-2">
-                  {/* Example color links, adjust as needed */}
-                  <Link to={`/product/1`} className="w-20 h-20 border-2 border-primary rounded-lg">
-                    <img className="w-full h-full rounded-lg" src="/path/to/image1.jpg" alt="Color option 1" />
-                  </Link>
-                  <Link to={`/product/2`} className="w-20 h-20 border-2 border-zinc-300 rounded-lg hover:border-primary">
-                    <img className="w-full h-full rounded-lg" src="/path/to/image2.jpg" alt="Color option 2" />
-                  </Link>
-                  <Link to={`/product/3`} className="w-20 h-20 border-2 border-zinc-300 rounded-lg hover:border-primary">
-                    <img className="w-full h-full rounded-lg" src="/path/to/image3.jpg" alt="Color option 3" />
-                  </Link>
-                </div>
+              
+              <div className="mt-6 flex space-x-4">
+                <h2 className="text-lg font-bold text-primary">Size:</h2>
+                <p className="text-lg text-muted-foreground">{product.size || '-'}</p>
+                <button className="text-brown-900 hover:bg-transparent" onClick={toggleSizeChart}>
+                  Size Chart
+                </button>
               </div>
-              <div className="mt-6">
-                <h2 className="text-lg font-semibold text-primary">Size</h2>
-                <div className="flex space-x-2 mt-2">
-                  <button className="bg-secondary hover:bg-transparent text-secondary-foreground px-4 py-2 rounded-lg">S</button>
-                  <button className="bg-secondary hover:bg-transparent text-secondary-foreground px-4 py-2 rounded-lg">M</button>
-                  <button className="bg-secondary hover:bg-transparent text-secondary-foreground px-4 py-2 rounded-lg">L</button>
-                  <button className="bg-secondary hover:bg-transparent text-secondary-foreground px-4 py-2 rounded-lg">XL</button>
-                  <button className="bg-secondary hover:bg-transparent text-secondary-foreground px-4 py-2 rounded-lg">XXL</button>
-                  <button className="text-blue-500 hover:bg-transparent ml-4" onClick={toggleSizeChart}>
-                    Size Chart
-                  </button>
-                </div>
+
+              <div className="mt-6 flex space-x-4">
+                <h2 className="text-lg font-bold text-primary">Color:</h2>
+                <p className="text-lg text-muted-foreground">{product.color || '-'}</p>
               </div>
+
+              <div className="mt-6 flex space-x-4">
+                <h2 className="text-lg font-semibold text-primary">Material:</h2>
+                <p className="text-lg text-muted-foreground">{product.Material || '-'}</p>
+              </div>
+
             </div>
           </div>
         </div>
