@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { firestore } from '../../Firebase'; // Make sure to import Firestore
+import { firestore } from '../../Firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import Header from '../../components/navbar.jsx';
 import Footer from '../../components/Footer.jsx';
@@ -12,23 +12,22 @@ import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 
 const ProductPage = () => {
   const [user, setUser] = useState(null);
-  const [product, setProduct] = useState(null); // Initialize product as null
+  const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [showSizeChart, setShowSizeChart] = useState(false);
-  const { productId } = useParams(); // Get productId from the URL params
+  const { productId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        // Query Firestore to get the product where 'id' matches the productId from the URL
         const q = query(collection(firestore, 'products'), where('id', '==', productId));
         const querySnapshot = await getDocs(q);
         
         if (!querySnapshot.empty) {
-          const productData = querySnapshot.docs[0].data(); // Get the first matched product
-          setProduct(productData); // Set product data to state
-          setMainImage(productData.image); // Set main image initially
+          const productData = querySnapshot.docs[0].data();
+          setProduct(productData);
+          setMainImage(productData.image); 
         } else {
           console.error('Product not found');
         }
@@ -44,7 +43,7 @@ const ProductPage = () => {
     });
 
     return () => unsubscribe();
-  }, [productId]); // Re-run the effect when productId changes
+  }, [productId]);
 
   const handleBuyNow = () => {
     localStorage.setItem('selectedProduct', JSON.stringify(product));
