@@ -123,14 +123,14 @@ const Shipment = () => {
           <input
             type="text"
             name="shipmentID"
-            placeholder="Shipment ID"
+            placeholder="Filter by Shipment ID"
             value={filters.shipmentID}
             onChange={handleFilterChange}
             className="p-2 rounded bg-yellow-300 text-brown-900 placeholder-brown-900 mb-2"
           />
           <input
             type="text"
-            name="orderID"
+            name="Filter by orderID"
             placeholder="Order ID"
             value={filters.orderID}
             onChange={handleFilterChange}
@@ -138,14 +138,14 @@ const Shipment = () => {
           />
           <input
             type="text"
-            name="vendorName"
+            name="Filter by vendorName"
             placeholder="Vendor Name"
             value={filters.vendorName}
             onChange={handleFilterChange}
             className="p-2 rounded bg-yellow-300 text-brown-900 placeholder-brown-900 mb-2"
           />
           <select
-            name="shipmentStatus"
+            name="Filter by shipmentStatus"
             value={filters.shipmentStatus}
             onChange={handleFilterChange}
             className="p-2 rounded bg-yellow-300 text-brown-900 placeholder-brown-900 mb-2"

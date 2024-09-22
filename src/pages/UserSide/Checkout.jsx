@@ -25,7 +25,7 @@ export default function Checkout() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [products, setProducts] = useState([]); 
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState(""); // Store username
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
 
